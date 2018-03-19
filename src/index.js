@@ -1,19 +1,19 @@
-const primes = []
-let currentNumber = 1
+const primes = [2, 3, 5]
+let currentNumber = 7
 
-const canBeDividedWith = (number, divisor) => number % divisor === 0
+const canBeDividedWith = number => divisor => number % divisor === 0
 
 function findPrimes () {
   const maxNumber = currentNumber + 10000
 
   while (currentNumber < maxNumber) {
-    currentNumber += 2
-
-    const found = primes.find(prime => canBeDividedWith(currentNumber, prime))
+    const found = primes.find(canBeDividedWith(currentNumber))
 
     if (found === undefined) {
       primes.push(currentNumber)
     }
+
+    currentNumber += 2
   }
 
   // setTimeout(findPrimes, 100)
