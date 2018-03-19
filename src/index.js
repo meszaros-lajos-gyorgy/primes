@@ -7,17 +7,9 @@ function findPrimes () {
   while (currentNumber < maxNumber) {
     currentNumber += 2
 
-    var iMax = primes.length
-    var found = false
+    const found = primes.find(prime => currentNumber % prime === 0)
 
-    for (var i = 0; i < iMax; i++) {
-      if (currentNumber % primes[i] === 0) {
-        found = true
-        break
-      }
-    }
-
-    if (!found) {
+    if (found === undefined) {
       primes.push(currentNumber)
     }
   }
