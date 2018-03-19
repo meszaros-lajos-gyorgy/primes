@@ -2,10 +2,15 @@
   "name": "primes",
   "version": "1.0.0",
   "description": "A collection of tools, which focus on working with prime numbers",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "stage-after-lint": "git add src",
+    "lint": "standard --fix"
   },
+  "pre-commit": [
+    "lint",
+    "stage-after-lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meszaros-lajos-gyorgy/primes.git"
@@ -15,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/meszaros-lajos-gyorgy/primes/issues"
   },
-  "homepage": "https://github.com/meszaros-lajos-gyorgy/primes#readme"
+  "homepage": "https://github.com/meszaros-lajos-gyorgy/primes#readme",
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "standard": "^11.0.1"
+  }
 }
