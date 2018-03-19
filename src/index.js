@@ -8,10 +8,8 @@ function findPrimes (currentNumber, to) {
       primes.push(currentNumber)
     }
 
-    currentNumber += 2
+    currentNumber += currentNumber.toString().endsWith('3') ? 4 : 2
   }
-
-  // setTimeout(findPrimes, 100)
 }
 
 findPrimes(7, 100)
