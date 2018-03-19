@@ -5,7 +5,7 @@ function findPrimes () {
   const maxNumber = currentNumber + 10000
 
   while (currentNumber < maxNumber) {
-    currentNumber++
+    currentNumber += 2
 
     var iMax = primes.length
     var found = false
