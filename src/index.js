@@ -4,7 +4,7 @@ let currentNumber = 7
 const canBeDividedWith = number => divisor => number % divisor === 0
 
 function findPrimes () {
-  const maxNumber = currentNumber + 10000
+  const maxNumber = currentNumber + 100
 
   while (currentNumber < maxNumber) {
     const found = primes.find(canBeDividedWith(currentNumber))
@@ -20,3 +20,5 @@ function findPrimes () {
 }
 
 findPrimes()
+
+console.log(primes)

@@ -4,6 +4,7 @@
   "description": "A collection of tools, which focus on working with prime numbers",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "stage-after-lint": "git add src",
     "lint": "standard --fix"
   },
