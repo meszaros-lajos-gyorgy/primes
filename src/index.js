@@ -7,9 +7,7 @@ function findPrimes () {
   const maxNumber = currentNumber + 100
 
   while (currentNumber < maxNumber) {
-    const found = primes.find(canBeDividedWith(currentNumber))
-
-    if (found === undefined) {
+    if (primes.find(canBeDividedWith(currentNumber)) === undefined) {
       primes.push(currentNumber)
     }
 
