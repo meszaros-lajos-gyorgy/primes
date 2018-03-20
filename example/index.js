@@ -2,7 +2,9 @@ import {
   findPrimes
 } from '../src/index'
 
-const equals = a => b => a === b
+import {
+  equals
+} from '../src/helpers'
 
 let primes = findPrimes(100)
 

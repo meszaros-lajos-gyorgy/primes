@@ -41,7 +41,7 @@ describe('findPrimes', () => {
     const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
     assert.deepEqual(findPrimes(50, primes), primes)
   })
-  
+
   it('includes the given number to the list of candidates', () => {
     const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
     assert.deepEqual(findPrimes(47), primes)

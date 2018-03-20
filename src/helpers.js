@@ -8,10 +8,13 @@ const clone = array => array.slice(0)
 
 const endsWith5 = number => number.toString().endsWith('5')
 
+const equals = a => b => a === b
+
 export {
   canBeDividedWith,
   last,
   beforeLast,
   clone,
-  endsWith5
+  endsWith5,
+  equals
 }
