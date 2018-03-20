@@ -21,7 +21,7 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
     currentNumber += 2
   }
 
-  while (currentNumber < to) {
+  while (currentNumber <= to) {
     // __iterations++
 
     if (foundPrimes.find(canBeDividedWith(currentNumber)) === undefined) {
