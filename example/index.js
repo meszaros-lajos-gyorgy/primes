@@ -1,28 +1,30 @@
 import {
-  findPrimes
-} from '../src/index'
-
-import {
   canBeDividedWith
 } from '../src/helpers'
 
-let primes
+import {
+  startWorker,
+  stopWorker,
+  increaseLimit,
+  getPrimes
+} from './worker'
 
-const isPrime = n => {
-  primes = findPrimes(n, primes)
-  return primes.includes(n)
-}
+const isPrime = n => increaseLimit(n).then(() => getPrimes().includes(n))
 
-const smallestFactor = n => {
-  primes = findPrimes(n, primes)
-  return isPrime(n) ? n : primes.find(canBeDividedWith(n))
-}
+const smallestFactor = n => increaseLimit(n).then(() => isPrime(n) ? n : getPrimes().find(canBeDividedWith(n)))
 
 const testNumbers = [601, 407, 12503, 47, 771, 152691]
+const number = testNumbers[0]
 
-testNumbers.forEach(number => {
-  console.log(`${number} - isPrime: ${isPrime(number)}, smallestFactor: ${smallestFactor(number)}`)
-})
+startWorker()
+
+Promise.all([isPrime(number), smallestFactor(number)])
+  .then(([resultOfIsPrime, resultOfSmallestFactor]) => {
+    console.log(`${number} - isPrime: ${resultOfIsPrime}, smallestFactor: ${resultOfSmallestFactor}`)
+  })
+  .then(() => {
+    stopWorker()
+  })
 
 // TODO: 152691 is divisable by 3, so fetching all primes until that is nice, but not needed at this point.
 // smallestFactor() and isPrime() should work in the following way:
@@ -30,7 +32,3 @@ testNumbers.forEach(number => {
 // else: if only searching the current cache gives back the result, that we need (like 771 can be divided with 3)
 //       then return the solution and mark, that we need to extend the prime cache up to 771 by raising the cache limit
 //       else ???
-// !! in the background: set an interval for every X milliseconds, which checks, if we need to buff up the cache
-//    when the cache limit is not covered by the cache (need to mark last searched value, so that we don't keep re-searching 998, 999 and 1000, when cache limit is 1000)
-//    then we steadily increase the cache by some factor (for example: need to search to 100k, but we are at 10k, do +10k every 100ms)
-// ??? What if we need the result instantly ???
