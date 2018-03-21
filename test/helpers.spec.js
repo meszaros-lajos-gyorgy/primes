@@ -7,7 +7,7 @@ import {
   last,
   beforeLast,
   clone,
-  endsWith5,
+  endsWith,
   equals
 } from '../src/helpers'
 
@@ -52,16 +52,16 @@ describe('clone', () => {
   })
 })
 
-describe('endsWith5', () => {
-  it('returns true, if the given number\'s last digit is 5', () => {
-    assert.deepEqual(endsWith5(75), true)
-    assert.deepEqual(endsWith5(35), true)
-    assert.deepEqual(endsWith5(5), true)
+describe('endsWith', () => {
+  it('takes 2 parameters in a curried fashion and returns true, when the ending of the 2nd parameter matches the 1st parameter', () => {
+    assert.deepEqual(endsWith(5)(75), true)
+    assert.deepEqual(endsWith(5)(35), true)
+    assert.deepEqual(endsWith(5)(5), true)
   })
-  it('returns false, when given number\'s last digit is different from 5', () => {
-    assert.deepEqual(endsWith5(49), false)
-    assert.deepEqual(endsWith5(7), false)
-    assert.deepEqual(endsWith5(102), false)
+  it('returns false, when 2nd parameter\'s ending differs from the 1st parameter', () => {
+    assert.deepEqual(endsWith(5)(49), false)
+    assert.deepEqual(endsWith(5)(7), false)
+    assert.deepEqual(endsWith(5)(102), false)
   })
 })
 

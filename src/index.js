@@ -3,8 +3,10 @@ import {
   last,
   beforeLast,
   clone,
-  endsWith5
+  endsWith
 } from './helpers'
+
+const endsWith5 = endsWith(5)
 
 const findPrimes = (to, primes = [2, 3, 5, 7]) => {
   // let __iterations = 0;

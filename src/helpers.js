@@ -6,7 +6,7 @@ const beforeLast = array => array[array.length - 2]
 
 const clone = array => array.slice(0)
 
-const endsWith5 = number => number.toString().endsWith('5')
+const endsWith = ending => number => number.toString().endsWith(ending.toString())
 
 const equals = a => b => a === b
 
@@ -15,6 +15,6 @@ export {
   last,
   beforeLast,
   clone,
-  endsWith5,
+  endsWith,
   equals
 }
