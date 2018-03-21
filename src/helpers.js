@@ -8,13 +8,10 @@ const clone = array => array.slice(0)
 
 const endsWith = ending => number => number.toString().endsWith(ending.toString())
 
-const equals = a => b => a === b
-
 export {
   canBeDividedWith,
   last,
   beforeLast,
   clone,
-  endsWith,
-  equals
+  endsWith
 }

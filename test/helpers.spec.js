@@ -7,8 +7,7 @@ import {
   last,
   beforeLast,
   clone,
-  endsWith,
-  equals
+  endsWith
 } from '../src/helpers'
 
 describe('canBeDividedWith', () => {
@@ -62,15 +61,5 @@ describe('endsWith', () => {
     assert.deepEqual(endsWith(5)(49), false)
     assert.deepEqual(endsWith(5)(7), false)
     assert.deepEqual(endsWith(5)(102), false)
-  })
-})
-
-describe('equals', () => {
-  it('takes 2 parameters in a curried fashion and returns true, when both are the same', () => {
-    assert.strictEqual(equals(5)(5), true)
-  })
-  it('returns false, when given parameters differ', () => {
-    assert.strictEqual(equals(6)(5), false)
-    assert.strictEqual(equals('5')(5), false)
   })
 })
