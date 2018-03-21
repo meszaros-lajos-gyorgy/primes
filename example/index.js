@@ -9,9 +9,12 @@ import {
   getPrimes
 } from './worker'
 
-const isPrime = n => increaseLimit(n).then(() => getPrimes().includes(n))
+const isPrime = n => increaseLimit(n)
+  .then(() => getPrimes().includes(n))
 
-const smallestFactor = n => increaseLimit(n).then(() => isPrime(n) ? n : getPrimes().find(canBeDividedWith(n)))
+const smallestFactor = n => increaseLimit(n)
+  .then(() => isPrime(n))
+  .then(numberIsPrime => numberIsPrime ? n : getPrimes().find(canBeDividedWith(n)))
 
 const testNumbers = [601, 407, 12503, 47, 771, 152691]
 const number = testNumbers[0]

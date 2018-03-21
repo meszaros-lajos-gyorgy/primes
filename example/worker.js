@@ -5,25 +5,26 @@ import {
 let lastCheckedNumber = 0
 let working = true
 let speed = 100
-
+let throttle = 1000
 let limit = 100
 let primes
 
 let worker
 
 const engine = () => {
-  if(working){
-    if(limit > lastCheckedNumber){
-      primes = findPrimes(limit, primes)
-      lastCheckedNumber = limit // TODO: clamp this to some value, which can easily be done in 100ms, for example 1000
-    }else{
+  if (working) {
+    if (limit > lastCheckedNumber) {
+      const diff = limit - lastCheckedNumber
+      lastCheckedNumber = diff / throttle > 1 ? lastCheckedNumber + throttle : limit
+      primes = findPrimes(lastCheckedNumber, primes)
+    } else {
       working = false
     }
   }
 }
 
 const startWorker = () => {
-  if(worker === undefined){
+  if (worker === undefined) {
     worker = setInterval(engine, speed)
   }
 }
@@ -35,14 +36,14 @@ const stopWorker = () => {
 const increaseLimit = n => {
   let resolver
 
-  if(limit >= n && !working){
+  if (limit >= n && !working) {
     resolver = Promise.resolve()
-  }else{
+  } else {
     working = true
     resolver = new Promise((resolve, reject) => {
       limit = n
       const checker = setInterval(() => {
-        if(working === false){
+        if (working === false) {
           clearInterval(checker)
           resolve()
         }
