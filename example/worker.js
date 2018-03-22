@@ -30,35 +30,55 @@ const startWorker = () => {
 }
 
 const stopWorker = () => {
+  working = false
   clearInterval(worker)
 }
 
-const increaseLimit = n => {
-  let resolver
-
+const increaseLimit = n => new Promise((resolve, reject) => {
+  // TODO: can we use onIdle() here too?
   if (limit >= n && !working) {
-    resolver = Promise.resolve()
+    resolve()
   } else {
     working = true
-    resolver = new Promise((resolve, reject) => {
-      limit = n
-      const checker = setInterval(() => {
-        if (working === false) {
-          clearInterval(checker)
-          resolve()
-        }
-      }, speed)
-    })
+    limit = n
+    const checker = setInterval(() => {
+      if (working === false) {
+        clearInterval(checker)
+        resolve()
+      }
+    }, speed)
   }
-
-  return resolver
-}
+})
 
 const getPrimes = () => primes
+
+const hasLimitBeenReached = () => limit <= lastCheckedNumber && !working
+
+const addPrime = n => {
+  limit = n
+  lastCheckedNumber = n
+  primes.push(n)
+}
+
+const onIdle = () => new Promise((resolve, reject) => {
+  if (working) {
+    const checker = setInterval(() => {
+      if (working === false) {
+        clearInterval(checker)
+        resolve()
+      }
+    }, speed)
+  }else{
+    resolve()
+  }
+})
 
 export {
   startWorker,
   stopWorker,
   increaseLimit,
-  getPrimes
+  getPrimes,
+  hasLimitBeenReached,
+  addPrime,
+  onIdle
 }
