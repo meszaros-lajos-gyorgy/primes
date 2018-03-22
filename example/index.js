@@ -13,23 +13,23 @@ import {
 } from './worker'
 
 const isPrime = n => {
-  if(hasLimitBeenReached(n)){
+  if (hasLimitBeenReached(n)) {
     return Promise.resolve(getPrimes().includes(n))
-  }else{
+  } else {
     // TODO: if n - lastCheckedNumber < throttle, then don't do the square root thing, since that would break a 1 cycle calculation into 2
     let root = Math.sqrt(n)
 
-    if(Number.isInteger(root)){
+    if (Number.isInteger(root)) {
       return Promise.resolve(false)
-    }else{
+    } else {
       root = Math.floor(root)
       return increaseLimit(root)
         .then(() => {
           const hasPrimeDivisor = getPrimes().find(canBeDividedWith(root)) !== undefined
 
-          if(hasPrimeDivisor){
+          if (hasPrimeDivisor) {
             increaseLimit(n)
-          }else{
+          } else {
             increaseLimit(n - 2)
               .then(() => {
                 // TODO: the limit can be overriden by another increaseLimit by the time we get here, so the addPrime should more like be a parameter of increaseLimit
@@ -37,7 +37,7 @@ const isPrime = n => {
                 addPrime(n)
               })
           }
-          
+
           return !hasPrimeDivisor
         })
     }
@@ -67,8 +67,3 @@ Promise.all([isPrime(number), smallestFactor(number)])
     stopWorker()
     console.log('done')
   })
-
-// if we got our number covered in the prime cache, then everything is good to go, we can read out the info as we do now
-// else: if only searching the current cache gives back the result, that we need (like 771 can be divided with 3)
-//       then return the solution and mark, that we need to extend the prime cache up to 771 by raising the cache limit
-//       else ???

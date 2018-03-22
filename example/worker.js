@@ -68,7 +68,7 @@ const onIdle = () => new Promise((resolve, reject) => {
         resolve()
       }
     }, speed)
-  }else{
+  } else {
     resolve()
   }
 })
