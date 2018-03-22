@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "stage-after-lint": "git add src",
+    "stage-after-lint": "git add src && git add example",
     "lint": "standard --fix",
     "unit": "mocha test/**/*.spec.js --require babel-core/register",
     "unit:watch": "npm run unit -- --watch --watch-extensions js",
