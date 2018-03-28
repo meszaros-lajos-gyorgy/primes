@@ -43,11 +43,11 @@ A fenti példákból nézve floor(sqrt(n))-nél az n:
   minimum n^2
   maximum (n+1)^2-1
 
-A négyzetszámokkal magukkal felesleges foglalkozni, így a minimumot növeljük eggyel
-2 kivételével minden prím szám páratlan, így azok négyzete mindig páros lesz, ezért mégegyszer növeljük a minimumot
+A négyzetszámokkal magukkal felesleges foglalkozni, így a minimumot növeljük eggyel (n^2+1)
+2 kivételével minden prím szám páratlan, így azoknál n^2+1 mindig páros lesz, ezért mégegyszer növeljük a minimumot (n^2+2)
 
-  n=2: [n^2+1 .. (n+1)^2-1]
-  n>2: [n^2+2 .. (n+1)^2-1]
+  n=2: [n^2+1 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 nem prím
+  n>2: [n^2+2 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 és n^2+1 nem prím
 
 A floor(sqrt(n)) az első szakasz felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
 Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartozó négyzetszámok?
@@ -64,3 +64,16 @@ Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartoz
 11: [123..143] - 21 db szám
 12: nem prím szám, kihagyjuk
 13: [171..195] - 25 db szám
+
+Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első szakasz utolsó eleme ( floor(sqrt(n)) ),
+akkor mi fogja kiszámítani az esetleges prímeket a második szakaszban?
+
+Lefedetlen terület illusztrálása: (a harmadik szakaszba visszatettem n^2 és n^2+1 biztos nem prímeket)
+[2] [3] [4..8]          - 3-at nem tudjuk kiszámolni
+[3] [4..8] [9..15]      - a második szakasz megegyezik a 2 harmadik szakaszával
+4: nem prím
+[5] [6..24] [25..35]    - a második szakaszból 6..15-ig fedve vagyunk, 16..24-ig nem
+
+És ha nem hagyjuk ki a 4-et, mert akadhat olyan négyzetszáma, ami prím?
+[4] [5..15] [16..24]    - a második szakaszból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
+Akkor megvan a hiányzó szakasz 5-höz
