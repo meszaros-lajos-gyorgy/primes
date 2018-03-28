@@ -58,3 +58,9 @@ Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartoz
 5: [27..35] - 9 db szám
 6: nem prím szám, kihagyjuk
 7: [51..63] - 13 db szám
+8: nem prím szám, kihagyjuk
+9: nem prím szám, kihagyjuk
+10: nem prím szám, kihagyjuk
+11: [123..143] - 21 db szám
+12: nem prím szám, kihagyjuk
+13: [171..195] - 25 db szám
