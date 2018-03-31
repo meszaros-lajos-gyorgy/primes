@@ -50,7 +50,21 @@ ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos mome
 Általános forma:
   [2 .. floor(sqrt(n))] [floor(sqrt(n))+1 .. n-1] [n]
   
-  * floor(sqrt(n))+1 helyett lehetne ceil(sqrt(n)), de négyzetszámoknál(4, 9, 16, 25...) nem lenne jó, mert ceil(sqrt(n)) == floor(sqrt(n))
+  * floor(sqrt(n))+1 helyett nem jó a ceil(sqrt(n)), mert négyzetszámoknál(4, 9, 16, 25...) nem lenne jó, hiszen ceil(sqrt(n)) == floor(sqrt(n))
+
+floor(sqrt(n)) - integer square root, avagy egész gyök
+http://www.nuprl.org/MathLibrary/integer_sqrt/
+
+```javascript
+const isqrt = x => {
+  if(x === 0) return 0
+  const tmp = 2 * isqrt(x / 4)
+  const tmp2 = tmp + 1
+  return x < tmp2 * tmp2 ? tmp : tmp2
+}
+
+isqrt(Number.MAX_SAFE_INTEGER) // 94906265
+```
 
 -------------------
 Párhuzamos számítás
