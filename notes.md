@@ -133,3 +133,15 @@ Lefedetlen terület illusztrálása: (a harmadik szakaszba visszatettem n^2 és 
 És ha nem hagyjuk ki a 4-et, mert akadhat olyan négyzetszáma, ami prím?
 [4] [5..15] [16..24]    - a második szakaszból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
 Akkor megvan a hiányzó szakasz 5-höz
+
+# méretbeli célok
+
+js Number.MAX_SAFE_INTEGER                  9007199254740991 - 2^53-1
+max uint64                              18446744073709551615 = 2^64-1
+windows 7 calc.exe          99999999999999999999999999999999 = 10^32-1 ~= 2^106.301
+
+Mi lenne, ha egymás mellé tennénk 2db uint64-et, mint ahogy a 16 bites AX-et is össze lehet rakni 2 db 8 bites AL és AH regiszterekből?
+Azzal 128 bitet kapnánk -> 2^128-1 lenne a legnagyobb szám (uint128)
+
+Ha sikerülne a fenti 2*uint64 összeragasztása, akkor igazából már akármennyit össze lehetne rakni.
+Viszont valahogy dinamikusra kellene csinálni az egészet, hiszen nem számolunk mindig 128 bites számokkal, lehetne ezt valahogy dinamikusan növekvőre csinálni.
