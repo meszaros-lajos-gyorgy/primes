@@ -145,3 +145,15 @@ Azzal 128 bitet kapnánk -> 2^128-1 lenne a legnagyobb szám (uint128)
 
 Ha sikerülne a fenti 2*uint64 összeragasztása, akkor igazából már akármennyit össze lehetne rakni.
 Viszont valahogy dinamikusra kellene csinálni az egészet, hiszen nem számolunk mindig 128 bites számokkal, lehetne ezt valahogy dinamikusan növekvőre csinálni.
+
+Példa, hogy hogyan lehetne két i32-ből i64-et emulálni: https://developer.mozilla.org/en-US/docs/Mozilla/js-ctypes/js-ctypes_reference/UInt64
+
+! Ha a JS támogatja majd a BigInt-et, akkor nem szabad megelégednünk majd a 64 bittel, az mindenki számára elérhető lesz. Jó lenne akkor már kapásból 128 bitre felkészülni.
+
+A bitcoin már csinált 256 bites uint emulációt is: https://github.com/bitcoin/bitcoin/blob/master/src/uint256.h - operator overloaddal egész elegáns a megoldás
+Íme, az uint1024 se jelent gondot: https://github.com/bajtos/knapsack-crypto/blob/master/uint1024.c
+
+Jön a BigInt a JS-be: https://github.com/tc39/proposal-bigint
+
+Egyelőre az i64 az nem szökhet ki a webassembly világából: https://github.com/WebAssembly/design/pull/923
+Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott menni fog a típuskonvertálás: https://github.com/WebAssembly/design/issues/1172
