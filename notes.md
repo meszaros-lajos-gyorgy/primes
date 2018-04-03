@@ -157,3 +157,7 @@ Jön a BigInt a JS-be: https://github.com/tc39/proposal-bigint
 
 Egyelőre az i64 az nem szökhet ki a webassembly világából: https://github.com/WebAssembly/design/pull/923
 Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott menni fog a típuskonvertálás: https://github.com/WebAssembly/design/issues/1172
+
+# távlati célok
+
+éppen a fent említett dolgok olyan korlátok vannak jelenleg, ami meggátolja hogy beátható időn belül rendes számként tekintsünk a nagyon nagy számokrra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. és ezért is fontos a jelenlegi rendszerek korlátainak ismerete
