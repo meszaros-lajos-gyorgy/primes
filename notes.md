@@ -162,4 +162,18 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 
 Éppen a fent említett dolgok olyan korlátok jelenleg, amik meggátolják hogy belátható időn belül rendes számként tekintsünk a nagyon nagy számokra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. És ezért is fontos a jelenlegi rendszerek korlátainak ismerete.
 
-# mit lehet csinálni a prímekkel
+# mit lehet csinálni a prímekkel, mire lehetne használnia ezt a rendszert a felhasználónak
+
+* meg tudjuk mondani, hogy az adott szám prím-e
+* ha prím, akkor
+* * meg tudjuk mondani, hogy hanyadik
+* * meg tudjuk mondani, melyek az előző és következő prímek és hogy azok milyen távra vannak
+* * tudunk róla jellemzőket, pl az adott prím mersenne prím (ez opcionális)
+* ha nem prím, akkor
+* * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
+* * tudunk adni prímtényezős bontást
+* * meg tudjuk adni a legkisebb osztót
+* meg tudjuk adni egy adott szám előtti utolsó és utáni első prímet
+* meg tudjuk mondani, hogy egy szám alatt hány db prím található
+* meg tudjuk keresni 2 szám legkisebb közös többszörösét és legnagyobb közös osztóját (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
+* meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e (legnagyobb közös osztó > 1)
