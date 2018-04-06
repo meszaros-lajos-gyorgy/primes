@@ -8,9 +8,16 @@ import {
   increaseLimit,
   getPrimes,
   hasLimitBeenReached,
-  addPrime,
+  // addPrime,
   onIdle
 } from './worker'
+
+import {
+  forEachSeries
+} from './async'
+
+const not = fn => (...args) => !fn.apply(fn, args)
+const isLesserThanOrEqual = a => b => b <= a
 
 const isPrime = n => {
   if (hasLimitBeenReached(n)) {
@@ -25,7 +32,15 @@ const isPrime = n => {
       root = Math.floor(root)
       return increaseLimit(root)
         .then(() => {
-          const hasPrimeDivisor = getPrimes().find(canBeDividedWith(root)) !== undefined
+          let primes = getPrimes()
+
+          // TODO: if we've just increased the limit, then we don't need slicing
+          const lastIndexBeforeRoot = primes.findIndex(not(isLesserThanOrEqual(root)))
+          if (lastIndexBeforeRoot !== -1) {
+            primes = primes.slice(0, lastIndexBeforeRoot)
+          }
+
+          const hasPrimeDivisor = primes.find(canBeDividedWith(n)) !== undefined
 
           if (hasPrimeDivisor) {
             increaseLimit(n)
@@ -34,7 +49,7 @@ const isPrime = n => {
               .then(() => {
                 // TODO: the limit can be overriden by another increaseLimit by the time we get here, so the addPrime should more like be a parameter of increaseLimit
                 // we would store these found primes separately and insert them as needed
-                addPrime(n)
+                // addPrime(n) - !!! This is buggy due to the upper reason, disabled it
               })
           }
 
@@ -50,18 +65,22 @@ const smallestFactor = n => {
     .then(() => isPrime(n))
     .then(numberIsPrime => numberIsPrime ? n : getPrimes().find(canBeDividedWith(n)))
   */
-  return Promise.resolve('----')
+  return Promise.resolve('---')
 }
 
+// primes: 601, 12503, 47
+// not primes: 407(11), 771(3), 152691(3)
 const testNumbers = [601, 407, 12503, 47, 771, 152691]
-const number = testNumbers[5]
 
 startWorker()
 
-Promise.all([isPrime(number), smallestFactor(number)])
-  .then(([resultOfIsPrime, resultOfSmallestFactor]) => {
-    console.log(`${number} - isPrime: ${resultOfIsPrime}, smallestFactor: ${resultOfSmallestFactor}`)
-  })
+forEachSeries(number => {
+  return Promise
+    .all([isPrime(number), smallestFactor(number)])
+    .then(([resultOfIsPrime, resultOfSmallestFactor]) => {
+      console.log(`${number} - isPrime: ${resultOfIsPrime}, smallestFactor: ${resultOfSmallestFactor}`)
+    })
+}, testNumbers)
   .then(onIdle)
   .then(() => {
     stopWorker()
