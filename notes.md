@@ -8,7 +8,7 @@
 
 **2**: az utolsó számjegy 0, 2, 4, 6, vagy 8
 
-**3**: számjegyek összege osztható-e 3-al; a szám maga egymást követő 3 szám szorzata (n * n - 1 * n + 1);
+**3**: számjegyek összege osztható-e 3-al; a szám maga egymást követő 3 szám szorzata (n * (n - 1) * (n + 1));
    számoljuk meg hányszor szerepel a 2-es, 5-ös és 8-as a számban, majd számoljuk meg ugyanígy az 1, 4 és 7 előfordulását. Vonjuk ki a 2-5-8-as összeget az 1-4-7-es összegből. Ha az osztható 3-al, akkor a szám is.
 
 **5**: 0-ra, vagy 5-re végződik a szám
@@ -19,6 +19,8 @@
      215 -> 21-(2x5) -> 11 - tehát nem osztható héttel (de ez korábban kiesett az utolsó számjegy miatt)
      217 -> 21-(2x7) -> 14 - tehát osztható héttel!
      123456789 -> 12345678-18 -> 12345660 -> 1234566-0 -> 123456-12 -> 123444 -> 12344-8 -> 12336 -> 1233-12 -> 1221 -> 122-2 -> 120 -> 12-0 -> 12 -> 1-4 -> -3 // tehát nem osztható héttel
+  jegyzet: Itt gondolom el kéne tárolni 0 és 100 között a 7-el osztható számokat, ami segítségével ha 3 számjegyűnél kisebbre redukáltuk a számunkat, akkor itt már csak egy sima lookup-pal le tudjuk ellenőrizni az oszthatóságot.
+  jegyzet2: ez az egyesével lépkedés nagyon lassú lenne egy baromi nagy számnál. van esetleg megoldás, ami több számmal is tudná csökkenteni a jelöltet?
 
 **11**: az első számjegytől az utolsó előttiig tartó számból kivonom az utolsó számjegyet, és ha az osztható 11-el akkor az eredeti is
   pl 1234567 -> 123456-7 -> 123449 -> 12344-9 -> 12335 -> 1233-5 -> 1228 -> 122-8 -> 114 -> 11-4 -> 7 // ez kisebb mint 11 ezért nem osztható az eredeti szám sem 11-el
@@ -40,6 +42,8 @@
 **37**: elsőtől utolsó előttiig tartó számból vedd el az utolsó számjegy 11-szeresét
 
 ezt általánosítani is lehet valahogy biztosan
+
+A legtöbb fenti eredmény kiszámítása úgy alakul, hogy egy számot leredukálunk egy kisebbre és annál nézzük meg az oszthatóságot. Erre egy bizonyos számjegy alatti osztókból álló táblázat lehetne a megoldás, amik között megkeressük, hogy tartalmazza-e a mi redukált számunkat. Pl eltárolhatjuk 0 és 100 között n többszöröseit, így ha a számot már sikerült leredukálni 2 számjegyűre, akkor azt már a többel össze tudjuk vetni, hogy megkapjuk az n-el való oszthatóságot.
 
 # lyukas tömb
 
@@ -162,7 +166,7 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 
 Éppen a fent említett dolgok olyan korlátok jelenleg, amik meggátolják hogy belátható időn belül rendes számként tekintsünk a nagyon nagy számokra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. És ezért is fontos a jelenlegi rendszerek korlátainak ismerete.
 
-# mit lehet csinálni a prímekkel, mire lehetne használnia ezt a rendszert a felhasználónak
+# mit lehet csinálni ezzel az egésszel, mire tudná használni ezt a felhasználó?
 
 * meg tudjuk mondani, hogy az adott szám prím-e
 * ha prím, akkor
