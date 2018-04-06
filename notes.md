@@ -138,6 +138,24 @@ Lefedetlen terület illusztrálása: (a harmadik szakaszba visszatettem n^2 és 
 [4] [5..15] [16..24]    - a második szakaszból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
 Akkor megvan a hiányzó szakasz 5-höz
 
+# fragmentált tömb (több, átfedésbe került lyukas tömb)
+
+A prímek tömbje elvileg a kisebb számoktól fog sorfolytonosan feltöltődni, de nagyobb prímeknél már nehezebb kitölteni az [iroot(n)+1 .. n-1] űrt. Útközben jöhetnek újabb számítások, amikhez ugyan megvan a szükséges [2 .. iroot(n)], vagy csak keveset kell számítani, de mégis oda jutunk, hogy lesz több, nem összefüggő szakaszunk a prímek listájában
+
+A valóságban nem úgy tárolnánk el az utolsó kiszámolt prímet, hogy az az n-hez tartozó floor(sqrt(n)), hanem csak mint egy sima számot, ahol a prímek listája megszakad. Ezután viszont jönne egy ismeretlen hosszúságú űr, amit n zárna le. Fontos lenne azt is eltárolni, hogy a gyökvonás után iroot(n)-ig bezárólag minden szám vizsgálatra került, ezeket már többé nem kell vizsgálni. Ugyanígy fontos lenne azt is eltárolni, hogy magát n-t is vizsgáltuk, és ha az prím volt, akkor ezután n-t, n-1-et és n+1-et már nem kell vizsgálni (n volt a prím, előtte és utána csak nem prímek vannak), illetve ha nem volt prím, akkor csak magát n-t nem kell vizsgálni, habár n-1, vagy n+1 még lehet prím.
+
+Sok számítás után egy darab összefüggő lista lesz a prímekkel, amit majd néha felbukkanó 1, vagy 3 számjegyeket lefedő szakaszok fognak követni összefüggéstelen listában. Néha ezek a listák összeérhetnek, amik esetében ezeket jó lenne kombinálni.
+
+Ha a fentiek alapján 3 elemet le tudunk fedni azzal, hogy n prím, akkor célszerű azt eltárolni, hogy kezdődik egy új prímszámokat magábafoglaló szakasz, ami n-1-nél kezdődik és n+1-nél végződik, valamint 1 db kiszámolt prímet tartalmaz: n-t. Később, ha ezek az elemek találkoznak, akkor az alábbi módon kerülnének kombinálásra:
+
+```
+a: [[n-1 .. n+1], [n]]
+b: [[m-1 .. m+1], [m]]
+(a+b): [[n-1 .. m+1], [n, m]]
+```
+
+Mi lenne az ideális séma a prímek és a töredékek tárolására?
+
 # méretbeli célok
 
 js Number.MAX_SAFE_INTEGER                  9007199254740991 - 2^53-1
