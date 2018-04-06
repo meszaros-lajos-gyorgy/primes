@@ -160,4 +160,6 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 
 # távlati célok
 
-éppen a fent említett dolgok olyan korlátok vannak jelenleg, ami meggátolja hogy beátható időn belül rendes számként tekintsünk a nagyon nagy számokrra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. és ezért is fontos a jelenlegi rendszerek korlátainak ismerete
+Éppen a fent említett dolgok olyan korlátok jelenleg, amik meggátolják hogy belátható időn belül rendes számként tekintsünk a nagyon nagy számokra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. És ezért is fontos a jelenlegi rendszerek korlátainak ismerete.
+
+# mit lehet csinálni a prímekkel
