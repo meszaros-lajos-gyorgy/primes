@@ -59,7 +59,7 @@ floor(sqrt(37)) = 6
 ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos momentum lehet hogy milyen módszerrel történik. gyökvonást az fpu csak korlátos számig tudja megoldani
   a 7-től 36-ig terjedő számok ebben az esetben nem fontosak
 
-37-ig a számegyenes felosztása 3 szakaszba:
+37-ig a számegyenes felosztása 3 intervallumba:
   [2..6] [7..36] [37]
   
   első tömb: számításhoz;
@@ -88,8 +88,8 @@ isqrt(Number.MAX_SAFE_INTEGER) // 94906265
 
 # párhuzamos számítás
 
-a 3 részre felosztott számegyenes első szakasza alapján hány szám prímségét lehet egyszerre ellenőrizni úgy, hogy azok ne akadjanak össze?
-máshogy fogalmazva: ha az első szakasz adott, akkor mik lehetnek a 3. szakaszban?
+a 3 részre felosztott számegyenes első intervalluma alapján hány szám prímségét lehet egyszerre ellenőrizni úgy, hogy azok ne akadjanak össze?
+máshogy fogalmazva: ha az első intervallum adott, akkor mik lehetnek a 3. intervallumban?
 
 [2 .. x] [x+1 .. x^2-1] [x^2] - ez a max?
 
@@ -109,7 +109,7 @@ A négyzetszámokkal magukkal felesleges foglalkozni, így a minimumot növeljü
   n=2: [n^2+1 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 nem prím
   n>2: [n^2+2 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 és n^2+1 nem prím
 
-A floor(sqrt(n)) az első szakasz felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
+A floor(sqrt(n)) az első intervallum felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
 Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartozó négyzetszámok?
 
 2: [5..8]   - 4 db szám
@@ -125,28 +125,28 @@ Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartoz
 12: nem prím szám, kihagyjuk
 13: [171..195] - 25 db szám
 
-Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első szakasz utolsó eleme ( floor(sqrt(n)) ),
-akkor mi fogja kiszámítani az esetleges prímeket a második szakaszban?
+Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első intervallum utolsó eleme ( floor(sqrt(n)) ),
+akkor mi fogja kiszámítani az esetleges prímeket a második intervallumban?
 
-Lefedetlen terület illusztrálása: (a harmadik szakaszba visszatettem n^2 és n^2+1 biztos nem prímeket)
+Lefedetlen terület illusztrálása: (a harmadik intervallumba visszatettem n^2 és n^2+1 biztos nem prímeket)
 [2] [3] [4..8]          - 3-at nem tudjuk kiszámolni
-[3] [4..8] [9..15]      - a második szakasz megegyezik a 2 harmadik szakaszával
+[3] [4..8] [9..15]      - a második intervallum megegyezik a 2 harmadik intervallumával
 4: nem prím
-[5] [6..24] [25..35]    - a második szakaszból 6..15-ig fedve vagyunk, 16..24-ig nem
+[5] [6..24] [25..35]    - a második intervallumból 6..15-ig fedve vagyunk, 16..24-ig nem
 
 És ha nem hagyjuk ki a 4-et, mert akadhat olyan négyzetszáma, ami prím?
-[4] [5..15] [16..24]    - a második szakaszból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
-Akkor megvan a hiányzó szakasz 5-höz
+[4] [5..15] [16..24]    - a második intervallumból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
+Akkor megvan a hiányzó intervallum 5-höz
 
 # fragmentált tömb (több, átfedésbe került lyukas tömb)
 
-A prímek tömbje elvileg a kisebb számoktól fog sorfolytonosan feltöltődni, de nagyobb prímeknél már nehezebb kitölteni az [iroot(n)+1 .. n-1] űrt. Útközben jöhetnek újabb számítások, amikhez ugyan megvan a szükséges [2 .. iroot(n)], vagy csak keveset kell számítani, de mégis oda jutunk, hogy lesz több, nem összefüggő szakaszunk a prímek listájában
+A prímek tömbje elvileg a kisebb számoktól fog sorfolytonosan feltöltődni, de nagyobb prímeknél már nehezebb kitölteni az [iroot(n)+1 .. n-1] űrt. Útközben jöhetnek újabb számítások, amikhez ugyan megvan a szükséges [2 .. iroot(n)], vagy csak keveset kell számítani, de mégis oda jutunk, hogy lesz több, nem összefüggő intervallumunk a prímek listájában
 
 A valóságban nem úgy tárolnánk el az utolsó kiszámolt prímet, hogy az az n-hez tartozó floor(sqrt(n)), hanem csak mint egy sima számot, ahol a prímek listája megszakad. Ezután viszont jönne egy ismeretlen hosszúságú űr, amit n zárna le. Fontos lenne azt is eltárolni, hogy a gyökvonás után iroot(n)-ig bezárólag minden szám vizsgálatra került, ezeket már többé nem kell vizsgálni. Ugyanígy fontos lenne azt is eltárolni, hogy magát n-t is vizsgáltuk, és ha az prím volt, akkor ezután n-t, n-1-et és n+1-et már nem kell vizsgálni (n volt a prím, előtte és utána csak nem prímek vannak), illetve ha nem volt prím, akkor csak magát n-t nem kell vizsgálni, habár n-1, vagy n+1 még lehet prím.
 
-Sok számítás után egy darab összefüggő lista lesz a prímekkel, amit majd néha felbukkanó 1, vagy 3 számjegyeket lefedő szakaszok fognak követni összefüggéstelen listában. Néha ezek a listák összeérhetnek, amik esetében ezeket jó lenne kombinálni.
+Sok számítás után egy darab összefüggő lista lesz a prímekkel, amit majd néha felbukkanó 1, vagy 3 számjegyeket lefedő intervallumok fognak követni összefüggéstelen listában. Néha ezek a listák összeérhetnek, amik esetében ezeket jó lenne kombinálni.
 
-Ha a fentiek alapján 3 elemet le tudunk fedni azzal, hogy n prím, akkor célszerű azt eltárolni, hogy kezdődik egy új prímszámokat magábafoglaló szakasz, ami n-1-nél kezdődik és n+1-nél végződik, valamint 1 db kiszámolt prímet tartalmaz: n-t. Később, ha ezek az elemek találkoznak, akkor az alábbi módon kerülnének kombinálásra:
+Ha a fentiek alapján 3 elemet le tudunk fedni azzal, hogy n prím, akkor célszerű azt eltárolni, hogy kezdődik egy új prímszámokat magába foglaló intervallum, ami n-1-nél kezdődik és n+1-nél végződik, valamint 1 db kiszámolt prímet tartalmaz: n-t. Később, ha ezek az elemek találkoznak, akkor az alábbi módon kerülnének kombinálásra:
 
 ```
 a: [[n-1 .. n+1], [n]]
@@ -154,7 +154,22 @@ b: [[m-1 .. m+1], [m]]
 (a+b): [[n-1 .. m+1], [n, m]]
 ```
 
-Mi lenne az ideális séma a prímek és a töredékek tárolására?
+## Mi lenne az ideális séma a prímek és a töredékek tárolására?
+
+**Intervallum (interval)**: n és m közötti összes egész szám. Ennek elemei nem fontosak, elég csak azt tudni, honnan kezdődik és hol ér véget.
+
+Ezen belül vannak a **prímek (primes)**, amelyek az intervallumban található összes prímet foglalják magukba.
+
+Több intervallum is lehet definiálva, amelyeket egymással való érintkezés, vagy átfedés esetén kombinálni kell egy közös intervallumba.
+
+Létezik egy olyan intervallum, amelyik mindig 0-tól kezdődik, ez a **bázis (base)**. Ez a legfontosabb intervallum, mert ez adja meg, meddig tudunk prímeket ellenőrizni újabb prímek számolása nélkül.
+
+Az intervallumok közötti nem ellenőrzött számok halmaza a **rés (gap)**.
+
+Az intervallumok közötti rések feltöltéséhez a prioritást mindig a bázis és az utána levő első intervallum közti rés kapja, így garantált, hogy
+  
+  * a bázis növekszik és
+  * a lehetséges kiszámolandó prímek közül mindig a legegyszerűbbek kerülnek kiszámításra
 
 # méretbeli célok
 
