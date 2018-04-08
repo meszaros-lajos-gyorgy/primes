@@ -1,8 +1,12 @@
+# English translation will come in the future, but at this point it is easier for me to plan in hungarian.
+
+---
+
 # előszűrés N szám prímség vizsgálatához
 
 * (N > 5) nézzük meg az utolsó számjegyet. ha az 0, 2, 4, 5, 6, 8 akkor nem prím, mehetünk is tovább (1-et, 3-at, 7-et és 9-et figyelünk csak)
 * minden prim 6k+-1 alakban van, ezért ha a +-1-es alak nem osztható hárommal (számjegyek összege nem osztható hárommal) akkor nem prim, mehetünk tovább
-* a páratlan prímekből (N > 2) csak 1 olyan eset van, ahol 3 egymást követi 2 távolságra: 3 5 7. Minden más esetben 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk (prím hármasok, melyek legkisebb formája a 2-3-5 és 3-5-7 hármasokon kívül: p, p+2, p+6; p, p+4, p+6)
+* a páratlan prímekből (N > 2) csak 1 olyan eset van, ahol 3 egymást követi 2 távolságra: 3 5 7. Minden más esetben 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk, ahol minden lépés két prím, valamint prím és lyuk között 2 (prím hármasok, melyek legkisebb formája a 2-3-5 és 3-5-7 hármasokon kívül: p, p+2, p+6; p, p+4, p+6)
 
 ## extra infók, amik talán használhatóak előszűréshez
 
@@ -198,8 +202,8 @@ Egy új intervallumhoz 1 szám is elég, ami 3 fajta lehet:
 
 Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
 
-* [N] - N páros
-* [N-1..N+1] - N páratlan
+* [N] - 1 hosszú - N páros
+* [N-1..N+1] - 3 hosszú - N páratlan
 
 ### 1-3-7-9 vizsgálat
 
@@ -209,16 +213,31 @@ Egy új intervallumhoz 1 szám is elég, ami 3 fajta lehet:
 
 Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
 
-* [N] - N={...0, ...2, ...8}
-* [N-1..N+1] - N={...1, ...5, ...9}
-* [N..N+2] - N={...4}
-* [N-2..N] - N={...6}
-* [N-1..N+3] - N={...3}
-* [N-3..N+1] - N={...7}
+* [N] - 1 hosszú - N={...0, ...2, ...8}
+* [N-1..N+1] - 3 hosszú - N={...1, ...5, ...9}
+* [N..N+2] - 3 hosszú - N={...4}
+* [N-2..N] - 3 hosszú - N={...6}
+* [N-1..N+3] - 5 hosszú - N={...3}
+* [N-3..N+1] - 5 hosszú - N={...7}
 
 ### Prím hármasok
 
 Itt már nem tudunk csak 1 számmal dolgozni, ehhez 2 prím kell, ez intervallumok kombinálásánál lehetne hasznos.
+
+## 2 intervallum egyesítése
+
+## Bázis jellemzői és a bővítése
+
+A prímek pozitív egész számok, ezért a bázis alsó határa mindig 0.
+
+Annak érdekében, hogy az előszűrési feltételek kivételeit ne kelljen minden egyes újabb prímnél vizsgálni, a bázisba bele van égetve az első pár prím. Ezek a **beégetett prímek**. Pl ha N 1-3-7-9-re végződik akkor esélyes, hogy prím, de csak akkor, ha N>5. Ennek érdekében az 5 és azalatti prímeket érdemes előre felvenni a kiszámolt prímek közé, hiszen a kivétel csak 3 db prímet érintene a lista elejéről.
+
+A beégetett prímek mennyisége attól függ, hogy hány előszűrési feltételt veszünk figyelembe a kódban. A prímhármasok figyelembe vétele miatt a beégetett prímekkel lefedjük az egymáshoz legközelebb álló prímhármasok 2 esetét, így a beégetett prímeket minimum 7-ig kell felvenni. További előszűrések kivételei feljebb tornászhatják ezt a minimumot.
+
+// az alábbi minden intervallumra érvényes
+A kiszámolt prímeknél figyelembe kell azt is venni, amit a prímhármasok előszűrése megkövetel: nem lehet 1-nél több 2 távolságra levő prím egymás után. Páratlan prímeket nézve az alábbi módon alakulnak a további páratlan számok: 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk, ahol minden lépés 2 prím, valamint prím és lyuk között 2. Ezt úgy tudjuk figyelembe venni, hogy egy számlálóban külön nyílván tartjuk, a lista végén álló prímek visszafele nézve hány db 2 távra levő prímpárral rendelkeznek, amit természetesen elég csak addig tárolni, amíg ez a távolság nem lesz több, mint 2. Mivel ezek a 2 távra levő prímpárok(ikerprímek) 2-3-5 és 3-5-7 esetén kívül maximum 1-szer szerepelnek egymás után, így az utolsó távolság vagy ikerprím volt, vagy nem. Ha az utolsó 2 prím ikerprímet alkotott - esetleg még az előtte levő is, ha a legutolsó prímszám 7 volt -, akkor mindenképp a következő prím már legalább 4 távolságra lesz. Erre a célra egy boolean tökéletesen elegendő.
+
+## Bázis és intervallum egyesítése
 
 # méretbeli célok
 
@@ -252,13 +271,13 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 
 * meg tudjuk mondani, hogy az adott szám prím-e
 * ha prím, akkor
-* * meg tudjuk mondani, hogy hanyadik
-* * meg tudjuk mondani, melyek az előző és következő prímek és hogy azok milyen távra vannak
-* * tudunk róla jellemzőket, pl az adott prím mersenne prím (ez opcionális)
+  * meg tudjuk mondani, hogy hanyadik
+  * meg tudjuk mondani, melyek az előző és következő prímek és hogy azok milyen távra vannak
+  * tudunk róla jellemzőket, pl az adott prím mersenne prím (ez opcionális)
 * ha nem prím, akkor
-* * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
-* * tudunk adni prímtényezős bontást
-* * meg tudjuk adni a legkisebb osztót
+  * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
+  * tudunk adni prímtényezős bontást
+  * meg tudjuk adni a legkisebb osztót
 * meg tudjuk adni egy adott szám előtti utolsó és utáni első prímet
 * meg tudjuk mondani, hogy egy szám alatt hány db prím található
 * meg tudjuk keresni 2 szám legkisebb közös többszörösét és legnagyobb közös osztóját (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
