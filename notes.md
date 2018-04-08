@@ -1,8 +1,13 @@
-# előszűrés
+# előszűrés N szám prímség vizsgálatához
 
-* nézzük meg az utolsó pár számjegyet. ha az 0, 2, 4, 5, 6, 8 akkor nem prím, mehetünk is tovább (1-et, 3-at, 7-et és 9-et figyelünk csak)
+* (N > 5) nézzük meg az utolsó számjegyet. ha az 0, 2, 4, 5, 6, 8 akkor nem prím, mehetünk is tovább (1-et, 3-at, 7-et és 9-et figyelünk csak)
 * minden prim 6k+-1 alakban van, ezért ha a +-1-es alak nem osztható hárommal (számjegyek összege nem osztható hárommal) akkor nem prim, mehetünk tovább
-* a páratlan prímekből(>2) csak 1 olyan eset van, ahol 3 egymást követi: 3 5 7. Minden más esetben 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk
+* a páratlan prímekből (N > 2) csak 1 olyan eset van, ahol 3 egymást követi 2 távolságra: 3 5 7. Minden más esetben 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk (prím hármasok, melyek legkisebb formája a 2-3-5 és 3-5-7 hármasokon kívül: p, p+2, p+6; p, p+4, p+6)
+
+## extra infók, amik talán használhatóak előszűréshez
+
+* bármilyen n esetén lesz legalább 1 prím n és 2n között
+* ha n prím, akkor a következő prím n és 2n között kell, hogy legyen; ha n > 100, akkor n és 1.2n között lesz a következő prím
 
 # oszthatóság vizsgálat
 
@@ -154,11 +159,13 @@ b: [[m-1 .. m+1], [m]]
 (a+b): [[n-1 .. m+1], [n, m]]
 ```
 
-## Mi lenne az ideális séma a prímek és a töredékek tárolására?
+# Az ideális séma a prímek és a töredékek tárolására
 
 **Intervallum (interval)**: n és m közötti összes egész szám. Ennek elemei nem fontosak, elég csak azt tudni, honnan kezdődik és hol ér véget.
 
 Ezen belül vannak a **prímek (primes)**, amelyek az intervallumban található összes prímet foglalják magukba.
+
+Nem szükséges, hogy egy intervallum tartalmazzon prímeket.
 
 Több intervallum is lehet definiálva, amelyeket egymással való érintkezés, vagy átfedés esetén kombinálni kell egy közös intervallumba.
 
@@ -166,10 +173,52 @@ Létezik egy olyan intervallum, amelyik mindig 0-tól kezdődik, ez a **bázis (
 
 Az intervallumok közötti nem ellenőrzött számok halmaza a **rés (gap)**.
 
+Az intervallumokon belül garantálni kell, hogy ne legyen rés és minden prímje fel legyen fedezve.
+
 Az intervallumok közötti rések feltöltéséhez a prioritást mindig a bázis és az utána levő első intervallum közti rés kapja, így garantált, hogy
   
   * a bázis növekszik és
   * a lehetséges kiszámolandó prímek közül mindig a legegyszerűbbek kerülnek kiszámításra
+
+## Intervallumok létrehozása 1db szám segítségével
+
+Az előszűrési feltételek segítségével számítás nélkül tudjuk kijjebb tolni egy intervallum határát.
+
+Egy új intervallumhoz 1 szám is elég, ami 3 fajta lehet:
+
+* prím
+* nem prím, páratlan
+* nem prím, páros
+
+### Páros/Páratlan vizsgálat
+
+* Ha N prím és N > 3, akkor [N-1 .. N+1]
+* Ha N nem prím, páratlan és N > 3, akkor [N-1 .. N+1]
+* Ha N nem prím, páros és N > 2, akkor [N]
+
+Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
+
+* [N] - N páros
+* [N-1..N+1] - N páratlan
+
+### 1-3-7-9 vizsgálat
+
+* Ha N prím, akkor: N=...1 -> [N-1..N+1] | N=...3 -> [N-1..N+3] | N=...7 -> [N-3..N+1] | N=...9 -> [N-1..N+1]
+* Ha N nem prím és páratlan, akkor: N=...5 -> [N-1..N+1]
+* Ha N nem prím és páros, akkor: N=...0 -> [N] | N=...2 -> [N] | N=...4 -> [N..N+2] | N=...6 -> [N-2..N] | N=...8 -> [N]
+
+Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
+
+* [N] - N={...0, ...2, ...8}
+* [N-1..N+1] - N={...1, ...5, ...9}
+* [N..N+2] - N={...4}
+* [N-2..N] - N={...6}
+* [N-1..N+3] - N={...3}
+* [N-3..N+1] - N={...7}
+
+### Prím hármasok
+
+Itt már nem tudunk csak 1 számmal dolgozni, ehhez 2 prím kell, ez intervallumok kombinálásánál lehetne hasznos.
 
 # méretbeli célok
 
