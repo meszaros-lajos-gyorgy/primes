@@ -282,7 +282,7 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 * meg tudjuk mondani, hogy egy szám alatt hány db prím található
 * meg tudjuk keresni 2 szám legkisebb közös többszörösét (lcm - least common multiplier) és legnagyobb közös osztóját (gcd - greatest common divisor) (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
 
-*Az alábbi műveletek már az lcm-re és gcd-re építenek, amihez nem kell prím faktorizálás, ha Euklédesz algoritmusát használjuk és nem a prím faktorizálást*
+*Az alábbi műveletek már az lcm-re és gcd-re építenek, amihez nem kell prím faktorizálás, ha Eukleidész algoritmusát használjuk és nem a prím faktorizálást*
 
 * meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e ( `n/m -> gcd(n, m) > 1` )
 * tört egyszerűsítése ( `n/m -> (n/gcd(n/m)) / (m/gcd(n/m))` )
