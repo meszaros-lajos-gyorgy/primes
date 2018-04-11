@@ -280,5 +280,10 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
   * meg tudjuk adni a legkisebb osztót
 * meg tudjuk adni egy adott szám előtti utolsó és utáni első prímet
 * meg tudjuk mondani, hogy egy szám alatt hány db prím található
-* meg tudjuk keresni 2 szám legkisebb közös többszörösét és legnagyobb közös osztóját (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
-* meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e (legnagyobb közös osztó > 1)
+* meg tudjuk keresni 2 szám legkisebb közös többszörösét (lcm - least common multiplier) és legnagyobb közös osztóját (gcd - greatest common divisor) (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
+
+*Az alábbi műveletek már az lcm-re és gcd-re építenek, amihez nem kell prím faktorizálás, ha Euklédesz algoritmusát használjuk és nem a prím faktorizálást*
+
+* meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e ( `n/m -> gcd(n, m) > 1` )
+* tört egyszerűsítése ( `n/m -> (n/gcd(n/m)) / (m/gcd(n/m))` )
+* vissza tudjuk keresni egy tizedes tört osztóit ( `0.9564 = 0.9564/1 = (0.9564*10000 / 1*100000) = 9564/10000 = (9564/gcd(9564,10000)) / (10000/gcd(9564, 10000)) = (9564/4) / (10000/4) = 2391/2500` )
