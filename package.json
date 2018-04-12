@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "stage-after-lint": "git add src && git add example",
-    "lint": "standard --fix",
+    "lint": "eslint --fix src app",
     "unit": "mocha test/**/*.spec.js --require babel-core/register",
     "unit:watch": "npm run unit -- --watch --watch-extensions js",
     "example": "babel-node -- ./example/index.js"
@@ -31,9 +31,14 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "mocha": "^5.0.4",
-    "pre-commit": "^1.2.2",
-    "standard": "^11.0.1"
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "express": "^4.16.3",
