@@ -285,5 +285,5 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 *Az alábbi műveletek már az lcm-re és gcd-re építenek, amihez nem kell prím faktorizálás, ha Eukleidész algoritmusát használjuk és nem a prím faktorizálást*
 
 * meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e ( `n/m -> gcd(n, m) > 1` )
-* tört egyszerűsítése ( `n/m -> (n/gcd(n/m)) / (m/gcd(n/m))` )
-* vissza tudjuk keresni egy tizedes tört osztóit ( `0.9564 = 0.9564/1 = (0.9564*10000 / 1*100000) = 9564/10000 = (9564/gcd(9564,10000)) / (10000/gcd(9564, 10000)) = (9564/4) / (10000/4) = 2391/2500` )
+* tört egyszerűsítése ( `n/m -> (n/gcd(n, m)) / (m/gcd(n, m))` )
+* vissza tudjuk keresni egy tizedes tört osztóit ( `0.9564 = 0.9564/1 = (0.9564*10000 / 1*100000) = 9564/10000 = (9564/gcd(9564, 10000)) / (10000/gcd(9564, 10000)) = (9564/4) / (10000/4) = 2391/2500` )
