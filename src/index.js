@@ -1,10 +1,12 @@
 import {
-  canBeDividedWith,
   last,
   beforeLast,
   clone,
   endsWith
 } from './helpers'
+import {
+  isDivisibleBy
+} from './divisibility'
 
 const endsWith5 = endsWith('5')
 
@@ -26,7 +28,7 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
   while (currentNumber <= to) {
     // __iterations++
 
-    if (foundPrimes.find(canBeDividedWith(currentNumber)) === undefined) {
+    if (foundPrimes.find(isDivisibleBy(currentNumber)) === undefined) {
       foundPrimes.push(currentNumber)
       amountOfLastConsecutiveTwinPrimes++
     } else {

@@ -3,26 +3,12 @@
 import assert from 'assert'
 
 import {
-  canBeDividedWith,
   last,
   beforeLast,
   clone,
-  endsWith
+  endsWith,
+  getLastDigit
 } from '../src/helpers'
-
-describe('canBeDividedWith', () => {
-  it('takes a number, then returns a function', () => {
-    assert.equal(typeof canBeDividedWith(12), 'function')
-  })
-  it('takes a second number through the returned function and returns true, when the first number can be divided with it without any remainders', () => {
-    assert.deepEqual(canBeDividedWith(20)(5), true)
-    assert.deepEqual(canBeDividedWith(100)(4), true)
-  })
-  it('returns false, when given numbers can only be divided with remainders', () => {
-    assert.deepEqual(canBeDividedWith(107)(42), false)
-    assert.deepEqual(canBeDividedWith(7)(94), false)
-  })
-})
 
 describe('last', () => {
   it('returns the last element from the given array', () => {
@@ -61,5 +47,14 @@ describe('endsWith', () => {
     assert.deepEqual(endsWith(5)(49), false)
     assert.deepEqual(endsWith(5)(7), false)
     assert.deepEqual(endsWith(5)(102), false)
+  })
+})
+
+describe('getLastDigit', () => {
+  it('takes a number and returns it\'s last digit as a string', () => {
+    assert.equal(getLastDigit(127), '7')
+    assert.equal(getLastDigit(94), '4')
+    assert.equal(getLastDigit(-579), '9')
+    assert.equal(getLastDigit(10000), '0')
   })
 })
