@@ -15,11 +15,11 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
 
   let currentNumber = last(foundPrimes)
 
-  let consecutive = currentNumber - 2 === beforeLast(foundPrimes) ? 2 : 1
+  let amountOfLastConsecutiveTwinPrimes = currentNumber - 2 === beforeLast(foundPrimes) ? 2 : 1
 
   currentNumber = currentNumber + 2
-  if (endsWith5(currentNumber) || consecutive >= 2) {
-    consecutive = 0
+  if (endsWith5(currentNumber) || amountOfLastConsecutiveTwinPrimes >= 2) {
+    amountOfLastConsecutiveTwinPrimes = 0
     currentNumber += 2
   }
 
@@ -28,14 +28,14 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
 
     if (foundPrimes.find(canBeDividedWith(currentNumber)) === undefined) {
       foundPrimes.push(currentNumber)
-      consecutive++
+      amountOfLastConsecutiveTwinPrimes++
     } else {
-      consecutive = 0
+      amountOfLastConsecutiveTwinPrimes = 0
     }
 
     currentNumber = currentNumber + 2
-    if (endsWith5(currentNumber) || consecutive >= 2) {
-      consecutive = 0
+    if (endsWith5(currentNumber) || amountOfLastConsecutiveTwinPrimes >= 2) {
+      amountOfLastConsecutiveTwinPrimes = 0
       currentNumber += 2
     }
   }
