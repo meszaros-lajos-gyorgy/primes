@@ -6,7 +6,6 @@ import {
   last,
   beforeLast,
   clone,
-  endsWith,
   getLastDigit
 } from '../src/helpers'
 
@@ -34,19 +33,6 @@ describe('clone', () => {
   it('doesn\'t change the contents of the original array', () => {
     const a = [1, 2, 3, 4]
     assert.deepEqual(a, [1, 2, 3, 4])
-  })
-})
-
-describe('endsWith', () => {
-  it('takes 2 parameters in a curried fashion and returns true, when the ending of the 2nd parameter matches the 1st parameter', () => {
-    assert.deepEqual(endsWith(5)(75), true)
-    assert.deepEqual(endsWith(5)(35), true)
-    assert.deepEqual(endsWith(5)(5), true)
-  })
-  it('returns false, when 2nd parameter\'s ending differs from the 1st parameter', () => {
-    assert.deepEqual(endsWith(5)(49), false)
-    assert.deepEqual(endsWith(5)(7), false)
-    assert.deepEqual(endsWith(5)(102), false)
   })
 })
 

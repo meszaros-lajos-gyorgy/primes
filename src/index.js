@@ -2,13 +2,11 @@ import {
   last,
   beforeLast,
   clone,
-  endsWith
+  getLastDigit
 } from './helpers'
 import {
   isDivisibleBy
 } from './divisibility'
-
-const endsWith5 = endsWith('5')
 
 const findPrimes = (to, primes = [2, 3, 5, 7]) => {
   // let __iterations = 0;
@@ -20,7 +18,7 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
   let amountOfLastConsecutiveTwinPrimes = currentNumber - 2 === beforeLast(foundPrimes) ? 2 : 1
 
   currentNumber = currentNumber + 2
-  if (endsWith5(currentNumber) || amountOfLastConsecutiveTwinPrimes >= 2) {
+  if (getLastDigit(currentNumber) === '5' || amountOfLastConsecutiveTwinPrimes >= 2) {
     amountOfLastConsecutiveTwinPrimes = 0
     currentNumber += 2
   }
@@ -36,7 +34,7 @@ const findPrimes = (to, primes = [2, 3, 5, 7]) => {
     }
 
     currentNumber = currentNumber + 2
-    if (endsWith5(currentNumber) || amountOfLastConsecutiveTwinPrimes >= 2) {
+    if (getLastDigit(currentNumber) === '5' || amountOfLastConsecutiveTwinPrimes >= 2) {
       amountOfLastConsecutiveTwinPrimes = 0
       currentNumber += 2
     }
