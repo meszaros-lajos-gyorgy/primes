@@ -239,6 +239,19 @@ A kiszámolt prímeknél figyelembe kell azt is venni, amit a prímhármasok el�
 
 ## Bázis és intervallum egyesítése
 
+## Nagyon nagy számok
+
+Egy idő után a számok prímség ellenőrzése a korábbi prímek segítségével még akkor is érezhetően hosszú és processzorigényes lesz, ha az összes eddigi és jövőbeli optimalizálást alkalmazzuk. Ha már egy nagy szám kiszámítása elkezdődött, de az adott kliens nem tud a végére érni, akkor se kellene az addig elért eredményeket kidobni a kukába, el kéne tárolni, hogy X-et vizsgálta a kliens és Y-ig jutott (ameddig is bizton tudja állítani, hogy <=Y prímek nem osztják X-et)
+
+TODO: ennek az információnak a tárolásához jó lenne kitalálni valami formátumot, avagy hogyan lehetne bővíteni az eddigi sémánkat
+TODO2: valahova külön helyre összesíteni a formátumot, ahogyan eltároljuk az adatokat.
+TODO3: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva
+TODO4: pl 10000 kiszámolt prímenként eltároljuk az eredményeket fájlba és mindig csak egy adott fájl van nyitva, ami tartalmazza a szükséges infókat a további kereséshez. Esetleg van olyan DB, ami ezt könnyen lekezeli?
+
+### Mennyit is kell számolnunk
+
+TODO: Pár példa arra, hogy a prímek ellenőrzéséhez mennyit kell számolnunk és erre esetleg képlet
+
 # méretbeli célok
 
 js Number.MAX_SAFE_INTEGER                  9007199254740991 - 2^53-1
@@ -273,7 +286,7 @@ Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott 
 * ha prím, akkor
   * meg tudjuk mondani, hogy hanyadik
   * meg tudjuk mondani, melyek az előző és következő prímek és hogy azok milyen távra vannak
-  * tudunk róla jellemzőket, pl az adott prím mersenne prím (ez opcionális)
+  * tudunk róla jellemzőket, pl az adott prím mersenne prím-e (ez opcionális)
 * ha nem prím, akkor
   * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
   * tudunk adni prímtényezős bontást
