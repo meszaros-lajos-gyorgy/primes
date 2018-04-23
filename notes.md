@@ -15,6 +15,8 @@
 
 # oszthatóság vizsgálat
 
+**0 minden számmal osztható**
+
 **2**: az utolsó számjegy 0, 2, 4, 6, vagy 8
 
 **3**: számjegyek összege osztható-e 3-al; a szám maga egymást követő 3 szám szorzata (n * (n - 1) * (n + 1));
@@ -35,6 +37,7 @@
   pl 1234567 -> 123456-7 -> 123449 -> 12344-9 -> 12335 -> 1233-5 -> 1228 -> 122-8 -> 114 -> 11-4 -> 7 // ez kisebb mint 11 ezért nem osztható az eredeti szám sem 11-el
      1234571 -> 123457-1 -> 123456 -> 12345-6 -> 12339 -> 1233-9 -> 1224 -> 122-4 -> 118 -> 11-8 -> 3 // ez kisebb mint 11 ezért nem osztható az eredeti szám sem 11-el
      1234574 -> 123457-4 -> 123453 -> 12345-3 -> 12342 -> 1234-2 -> 1232 -> 123-2 -> 121 -> 12-1 -> 11 // éljen, ez osztható 11-el - de mivel 4-re végződik, már korábban kiesett volna
+  alternatív megoldás: N számjegyeit felváltva kivonjuk és összeadjuk és megnézzük, hogy az 11 többszöröse-e (pl 2343 osztható 11-el, mert 2 - 3 + 4 - 3 = 0);
 
 **13**: első számjegytől az utolsó előttiig tartó számhoz kell adni az utolsó számjegy négyszeresét és az eredmény osztható 13-al
 
