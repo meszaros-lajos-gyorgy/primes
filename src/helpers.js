@@ -1,12 +1,17 @@
-const last = array => array[array.length - 1]
+const sum = (a, b) => a + b
 
-const beforeLast = array => array[array.length - 2]
+const init = arrayOrString => arrayOrString.slice(0, arrayOrString.length - 1)
+const last = arrayOrString => arrayOrString[arrayOrString.length - 1]
 
-const clone = array => array.slice(0)
+const beforeLast = arrayOrString => arrayOrString[arrayOrString.length - 2]
+
+const clone = arrayOrString => arrayOrString.slice(0)
 
 const getLastDigit = number => number.toString()[number.toString().length - 1]
 
 export {
+  sum,
+  init,
   last,
   beforeLast,
   clone,
