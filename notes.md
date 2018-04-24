@@ -279,6 +279,10 @@ Jön a BigInt a JS-be: https://github.com/tc39/proposal-bigint
 Egyelőre az i64 az nem szökhet ki a webassembly világából: https://github.com/WebAssembly/design/pull/923
 Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott menni fog a típuskonvertálás: https://github.com/WebAssembly/design/issues/1172
 
+Az ArrayBuffer ideális jelöltnek tűnik a számok tárolására a string-el szemben. Uint32Array-el lehetne dolgozni, amíg nem lesz elérhető az Uint64Array.
+
+Az ArrayBuffer-el képzett számokkal akkor lehet foglalkozni, ha már az összes fenti kérdés meg van válaszolva és a számításokhoz szükséges összes művelet ki van dolgozva. Az majd egy átfogó képet ad, hogy milyen műveleteket kell tudnunk elvégezni a nagy számokkal. Addig jó lesz a sima javascript-es int.
+
 # távlati célok
 
 Éppen a fent említett dolgok olyan korlátok jelenleg, amik meggátolják hogy belátható időn belül rendes számként tekintsünk a nagyon nagy számokra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. És ezért is fontos a jelenlegi rendszerek korlátainak ismerete.
