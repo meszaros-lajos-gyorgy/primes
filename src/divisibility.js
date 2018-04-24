@@ -46,13 +46,12 @@ const isDivisibleBy = number => divisor => {
         break
       case 3:
         if (number.toString().length > 2) {
-          let sumOf147 = number.toString().match(/[147]+/g)
-          sumOf147 = sumOf147 === null ? 0 : sumOf147.join('').length
+          const digits = number.toString().split('')
 
-          let sumOf258 = number.toString().match(/[258]+/g)
-          sumOf258 = sumOf258 === null ? 0 : sumOf258.join('').length
+          const amountOf147 = digits.filter(digit => digit === '1' || digit === '4' || digit === '7').length
+          const amountOf258 = digits.filter(digit => digit === '2' || digit === '5' || digit === '8').length
 
-          result = isDivisibleBy(sumOf147 - sumOf258)(3)
+          result = isDivisibleBy(amountOf147 - amountOf258)(3)
         } else {
           const multiplesUnder100 = [
             3, 6, 9, 12, 15, 18, 21, 24, 27, 30,
