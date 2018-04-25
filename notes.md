@@ -2,81 +2,36 @@
 
 ---
 
-# lyukas tömb
+# Kiszámolt vs lehetséges prímek - A számegyenes 3 részre való osztása
 
-37 prím-e:
-  kezdjük azzal, hogy megnézzük, benne van-e a kiszámolt prímlistában a 37
-  persze teljesen felesleges végiggyalogolni a teljes tömbön, mert ha annak végtelen sok eleme van akkor végtelen sokáig fog tartani. ezért sokkal jobb lenne csak az első gyök37-ig lévő elemben keresni; ezért a tömb elejétől megyünk és rögtön kilépünk, amint van találat
-    ha igen, akkor prím
-    ha nem, akkor meg kell nézni, hogy [2 .. isqrt(37)] között van-e olyan szám, ami osztja azt
-      ha van, akkor nem prím
-      ha nincs, akkor prím
+A számegyenes alsó vége nálunk 2, hiszen az a legkisebb prím, 0 és 1 sose szerepel egyik műveletben sem.
 
-isqrt(37) = 6
-ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos momentum lehet hogy milyen módszerrel történik. gyökvonást az fpu csak korlátos számig tudja megoldani
-  a 7-től 36-ig terjedő számok ebben az esetben nem fontosak
+## N adott, mik a lehetséges osztók?
 
-37-ig a számegyenes felosztása 3 intervallumba:
-  [2..6] [7..36] [37]
-  
-  első tömb: számításhoz - lehetséges osztók;
-  második tömb: irreleváns;
-  harmadik tömb: maga a szám;
+A 2 és N közötti szakaszt 3 részre tudjuk felosztani: `[2..isqrt(N)] [isqrt(N)+1..N-1] [N]`
 
-Általános forma:
-  [2 .. isqrt(n)] [isqrt(n) + 1 .. n - 1] [n]
+## Kiszámolt prímek adottak, mely N-ek a többszörösei?
 
-# párhuzamos számítás
+Vegyük első körben csak a legnagyobb kiszámolt prímet(P). Az ahhoz tartozó N-ek az alábbi módon alakulnak:
 
-a 3 részre felosztott számegyenes első intervalluma alapján hány szám prímségét lehet egyszerre ellenőrizni úgy, hogy azok ne akadjanak össze?
-máshogy fogalmazva: ha az első intervallum adott, akkor mik lehetnek a 3. intervallumban?
+* ha `P=2`, akkor `[P] [P+1..P^2] [P^2+1..(P+1)^2-1]` = `[2] [3..4] [5..8]`
+* ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^-1]`
 
-[2 .. n] [n+1 .. n^2-1] [n^2] - ez a max?
+**Ez a párhuzamos számítás egyik kulcsa**, hiszen ha adott az első rész, akkor tudjuk egyszerre ellenőrizni a 3. részben szereplő összes számot anélkül, hogy azok ellenőrzése során kétszer ugyanazokat a számításokat végeznénk.
 
-2^2      = 4
-2.9999^2 = 8.99940001 (~9 = 3^2)
+A fenti példában a második részt kitölti az, ha a fenti műveletet végigzongorázzuk a P alatti összes N-re (nem csak prím):
 
-3^2      = 9
-3.9999^2 = 15.99920001 (~16 = 4^2)
+Példa:
 
-A fenti példákból nézve isqrt(n)-nél az n:
-  minimum n^2
-  maximum (n+1)^2-1
+`[2] [3] [4..8]` - `3`-at nem tudjuk kiszámolni
 
-A négyzetszámokkal magukkal felesleges foglalkozni, így a minimumot növeljük eggyel (n^2+1)
-2 kivételével minden prím szám páratlan, így azoknál n^2+1 mindig páros lesz, ezért mégegyszer növeljük a minimumot (n^2+2)
+`[3] [4..8] [9..15]` - a második rész megegyezik a `P=2` harmadik részével
 
-  n=2: [n^2+1 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 nem prím
-  n>2: [n^2+2 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 és n^2+1 nem prím
+`[4] [5..15] [16..24]` - a második résznél `5..8`-ig fedezi `P=2`, `9..15`-ig pedig fedezi `P=3`
 
-A isqrt(n) az első intervallum felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
-Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartozó négyzetszámok?
+`[5] [6..24] [25..35]` - a második résznél `6..15`-ig fedve vagyunk, `16..24`-ig pedig fedezi `P=4`
 
-2: [5..8]   - 4 db szám
-3: [11..15] - 5 db szám
-4: nem prím szám, kihagyjuk
-5: [27..35] - 9 db szám
-6: nem prím szám, kihagyjuk
-7: [51..63] - 13 db szám
-8: nem prím szám, kihagyjuk
-9: nem prím szám, kihagyjuk
-10: nem prím szám, kihagyjuk
-11: [123..143] - 21 db szám
-12: nem prím szám, kihagyjuk
-13: [171..195] - 25 db szám
-
-Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első intervallum utolsó eleme ( isqrt(n) ),
-akkor mi fogja kiszámítani az esetleges prímeket a második intervallumban?
-
-Lefedetlen terület illusztrálása: (a harmadik intervallumba visszatettem n^2 és n^2+1 biztos nem prímeket)
-[2] [3] [4..8]          - 3-at nem tudjuk kiszámolni
-[3] [4..8] [9..15]      - a második intervallum megegyezik a 2 harmadik intervallumával
-4: nem prím
-[5] [6..24] [25..35]    - a második intervallumból 6..15-ig fedve vagyunk, 16..24-ig nem
-
-És ha nem hagyjuk ki a 4-et, mert akadhat olyan négyzetszáma, ami prím?
-[4] [5..15] [16..24]    - a második intervallumból 5..8-ig fedezi 2, 9..15-ig pedig fedezi 3
-Akkor megvan a hiányzó intervallum 5-höz
+---
 
 # fragmentált tömb (több, átfedésbe került lyukas tömb)
 
