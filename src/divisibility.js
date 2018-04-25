@@ -1,5 +1,4 @@
 import {
-  sum,
   init,
   last,
   getLastDigit
@@ -67,7 +66,7 @@ const isDivisibleBy = number => divisor => {
           const {multiplier, baseCase: {digits, lookup}} = rules[divisor.toString()]
 
           if (number.toString().length() > digits) {
-            result = isDivisibleBy(multiplier * last(digits) + init(digits).reduce(sum, 0), divisor)
+            result = isDivisibleBy(multiplier * parseInt(last(digits)) + parseInt(init('digits')), divisor)
           } else {
             result = lookup.includes(number)
           }

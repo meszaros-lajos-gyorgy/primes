@@ -1,5 +1,3 @@
-const sum = (a, b) => a + b
-
 const init = arrayOrString => arrayOrString.slice(0, arrayOrString.length - 1)
 const last = arrayOrString => arrayOrString[arrayOrString.length - 1]
 
@@ -9,11 +7,20 @@ const clone = arrayOrString => arrayOrString.slice(0)
 
 const getLastDigit = number => number.toString()[number.toString().length - 1]
 
+const isqrt = x => {
+  if (x === 0) {
+    return 0
+  }
+  const tmp = 2 * isqrt(x / 4)
+  const tmp2 = tmp + 1
+  return x < tmp2 * tmp2 ? tmp : tmp2
+}
+
 export {
-  sum,
   init,
   last,
   beforeLast,
   clone,
-  getLastDigit
+  getLastDigit,
+  isqrt
 }

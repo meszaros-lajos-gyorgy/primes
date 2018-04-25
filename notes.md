@@ -2,61 +2,17 @@
 
 ---
 
-# oszthatóság vizsgálat
-
-**0 minden számmal osztható**
-
-**2**: az utolsó számjegy 0, 2, 4, 6, vagy 8
-
-**3**: számjegyek összege osztható-e 3-al; a szám maga egymást követő 3 szám szorzata (n * (n - 1) * (n + 1));
-   számoljuk meg hányszor szerepel a 2-es, 5-ös és 8-as a számban, majd számoljuk meg ugyanígy az 1, 4 és 7 előfordulását. Vonjuk ki a 2-5-8-as összeget az 1-4-7-es összegből. Ha az osztható 3-al, akkor a szám is.
-
-**5**: 0-ra, vagy 5-re végződik a szám
-
-**7**: az első számjegytől az utolsó előttiig tartó számból ki kell vonni az utolsó számjegy kétszeresét. ezt ismételni addig amig egyértelműen ki nem derül, hogy héttel osztható vagy sem.
-  pl 211 -> 21-(2x1) -> 19 - tehát nem osztható héttel
-     213 -> 21-(2x3) -> 15 - tehát nem oszthetó héttel (de ez korábban kiesett a hárommal oszthatóság miatt)
-     215 -> 21-(2x5) -> 11 - tehát nem osztható héttel (de ez korábban kiesett az utolsó számjegy miatt)
-     217 -> 21-(2x7) -> 14 - tehát osztható héttel!
-     123456789 -> 12345678-18 -> 12345660 -> 1234566-0 -> 123456-12 -> 123444 -> 12344-8 -> 12336 -> 1233-12 -> 1221 -> 122-2 -> 120 -> 12-0 -> 12 -> 1-4 -> -3 // tehát nem osztható héttel
-  jegyzet: Itt gondolom el kéne tárolni 0 és 100 között a 7-el osztható számokat, ami segítségével ha 3 számjegyűnél kisebbre redukáltuk a számunkat, akkor itt már csak egy sima lookup-pal le tudjuk ellenőrizni az oszthatóságot.
-  jegyzet2: ez az egyesével lépkedés nagyon lassú lenne egy baromi nagy számnál. van esetleg megoldás, ami több számmal is tudná csökkenteni a jelöltet?
-
-**11**: az első számjegytől az utolsó előttiig tartó számból kivonom az utolsó számjegyet, és ha az osztható 11-el akkor az eredeti is
-  pl 1234567 -> 123456-7 -> 123449 -> 12344-9 -> 12335 -> 1233-5 -> 1228 -> 122-8 -> 114 -> 11-4 -> 7 // ez kisebb mint 11 ezért nem osztható az eredeti szám sem 11-el
-     1234571 -> 123457-1 -> 123456 -> 12345-6 -> 12339 -> 1233-9 -> 1224 -> 122-4 -> 118 -> 11-8 -> 3 // ez kisebb mint 11 ezért nem osztható az eredeti szám sem 11-el
-     1234574 -> 123457-4 -> 123453 -> 12345-3 -> 12342 -> 1234-2 -> 1232 -> 123-2 -> 121 -> 12-1 -> 11 // éljen, ez osztható 11-el - de mivel 4-re végződik, már korábban kiesett volna
-  alternatív megoldás: N számjegyeit felváltva kivonjuk és összeadjuk és megnézzük, hogy az 11 többszöröse-e (pl 2343 osztható 11-el, mert 2 - 3 + 4 - 3 = 0);
-
-**13**: első számjegytől az utolsó előttiig tartó számhoz kell adni az utolsó számjegy négyszeresét és az eredmény osztható 13-al
-
-**17**: első számjegytől az utolsó előttiig tartó számból kivonjuk az utolsó számjegy ötszörösét és az eredmény osztható 17-el
-
-**19**: első számjegytől az utolsó előttiig tartó számhoz hozzáadjuk az utolsó számjegy kétszeresét és az eredmény osztható 19-el
-
-**23**: elsőtől utolsó előttiig tartó számhoz add az utolsó számjegy 7-szeresét
-
-**29**: elsőtől utolsó előttiig tartó számhoz add az utolsó számjegy 3-szorosát
-
-**31**: elsőtől utolsó előttiig tartó számból vedd el az utolsó számjegy 3-szorosát
-
-**37**: elsőtől utolsó előttiig tartó számból vedd el az utolsó számjegy 11-szeresét
-
-ezt általánosítani is lehet valahogy biztosan
-
-A legtöbb fenti eredmény kiszámítása úgy alakul, hogy egy számot leredukálunk egy kisebbre és annál nézzük meg az oszthatóságot. Erre egy bizonyos számjegy alatti osztókból álló táblázat lehetne a megoldás, amik között megkeressük, hogy tartalmazza-e a mi redukált számunkat. Pl eltárolhatjuk 0 és 100 között n többszöröseit, így ha a számot már sikerült leredukálni 2 számjegyűre, akkor azt már a többel össze tudjuk vetni, hogy megkapjuk az n-el való oszthatóságot.
-
 # lyukas tömb
 
 37 prím-e:
   kezdjük azzal, hogy megnézzük, benne van-e a kiszámolt prímlistában a 37
   persze teljesen felesleges végiggyalogolni a teljes tömbön, mert ha annak végtelen sok eleme van akkor végtelen sokáig fog tartani. ezért sokkal jobb lenne csak az első gyök37-ig lévő elemben keresni; ezért a tömb elejétől megyünk és rögtön kilépünk, amint van találat
     ha igen, akkor prím
-    ha nem, akkor meg kell nézni, hogy [2 .. floor(sqrt(37))] között van-e olyan szám, ami osztja azt
+    ha nem, akkor meg kell nézni, hogy [2 .. isqrt(37)] között van-e olyan szám, ami osztja azt
       ha van, akkor nem prím
       ha nincs, akkor prím
 
-floor(sqrt(37)) = 6
+isqrt(37) = 6
 ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos momentum lehet hogy milyen módszerrel történik. gyökvonást az fpu csak korlátos számig tudja megoldani
   a 7-től 36-ig terjedő számok ebben az esetben nem fontosak
 
@@ -68,24 +24,7 @@ ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos mome
   harmadik tömb: maga a szám;
 
 Általános forma:
-  [2 .. floor(sqrt(n))] [floor(sqrt(n)) + 1 .. n - 1] [n]
-  
-_floor(sqrt(n)) + 1 helyett nem jó a ceil(sqrt(n)), mert négyzetszámoknál(4, 9, 16, 25...) nem lenne jó, hiszen ceil(sqrt(n)) == floor(sqrt(n))_
-
-floor(sqrt(n)) = integer square root, avagy egész gyök
-
-http://www.nuprl.org/MathLibrary/integer_sqrt/
-
-```javascript
-const isqrt = x => {
-  if(x === 0) return 0
-  const tmp = 2 * isqrt(x / 4)
-  const tmp2 = tmp + 1
-  return x < tmp2 * tmp2 ? tmp : tmp2
-}
-
-isqrt(Number.MAX_SAFE_INTEGER) // 94906265
-```
+  [2 .. isqrt(n)] [isqrt(n) + 1 .. n - 1] [n]
 
 # párhuzamos számítás
 
@@ -100,7 +39,7 @@ máshogy fogalmazva: ha az első intervallum adott, akkor mik lehetnek a 3. inte
 3^2      = 9
 3.9999^2 = 15.99920001 (~16 = 4^2)
 
-A fenti példákból nézve floor(sqrt(n))-nél az n:
+A fenti példákból nézve isqrt(n)-nél az n:
   minimum n^2
   maximum (n+1)^2-1
 
@@ -110,7 +49,7 @@ A négyzetszámokkal magukkal felesleges foglalkozni, így a minimumot növeljü
   n=2: [n^2+1 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 nem prím
   n>2: [n^2+2 .. (n+1)^2-1] - emellett biztosan tudjuk, hogy n^2 és n^2+1 nem prím
 
-A floor(sqrt(n)) az első intervallum felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
+A isqrt(n) az első intervallum felső határa, így eddig csak 1 számhoz tartozó négyzeteket vizsgáltunk.
 Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartozó négyzetszámok?
 
 2: [5..8]   - 4 db szám
@@ -126,7 +65,7 @@ Mi a helyzet, ha több számot is kapunk a vizsgálathoz, mik a hozzájuk tartoz
 12: nem prím szám, kihagyjuk
 13: [171..195] - 25 db szám
 
-Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első intervallum utolsó eleme ( floor(sqrt(n)) ),
+Ha csak 1 számhoz tartozó négyzetszámokat vizsgálunk, ami az első intervallum utolsó eleme ( isqrt(n) ),
 akkor mi fogja kiszámítani az esetleges prímeket a második intervallumban?
 
 Lefedetlen terület illusztrálása: (a harmadik intervallumba visszatettem n^2 és n^2+1 biztos nem prímeket)
@@ -143,7 +82,7 @@ Akkor megvan a hiányzó intervallum 5-höz
 
 A prímek tömbje elvileg a kisebb számoktól fog sorfolytonosan feltöltődni, de nagyobb prímeknél már nehezebb kitölteni az [iroot(n)+1 .. n-1] űrt. Útközben jöhetnek újabb számítások, amikhez ugyan megvan a szükséges [2 .. iroot(n)], vagy csak keveset kell számítani, de mégis oda jutunk, hogy lesz több, nem összefüggő intervallumunk a prímek listájában
 
-A valóságban nem úgy tárolnánk el az utolsó kiszámolt prímet, hogy az az n-hez tartozó floor(sqrt(n)), hanem csak mint egy sima számot, ahol a prímek listája megszakad. Ezután viszont jönne egy ismeretlen hosszúságú űr, amit n zárna le. Fontos lenne azt is eltárolni, hogy a gyökvonás után iroot(n)-ig bezárólag minden szám vizsgálatra került, ezeket már többé nem kell vizsgálni. Ugyanígy fontos lenne azt is eltárolni, hogy magát n-t is vizsgáltuk, és ha az prím volt, akkor ezután n-t, n-1-et és n+1-et már nem kell vizsgálni (n volt a prím, előtte és utána csak nem prímek vannak), illetve ha nem volt prím, akkor csak magát n-t nem kell vizsgálni, habár n-1, vagy n+1 még lehet prím.
+A valóságban nem úgy tárolnánk el az utolsó kiszámolt prímet, hogy az az n-hez tartozó isqrt(n), hanem csak mint egy sima számot, ahol a prímek listája megszakad. Ezután viszont jönne egy ismeretlen hosszúságú űr, amit n zárna le. Fontos lenne azt is eltárolni, hogy a gyökvonás után iroot(n)-ig bezárólag minden szám vizsgálatra került, ezeket már többé nem kell vizsgálni. Ugyanígy fontos lenne azt is eltárolni, hogy magát n-t is vizsgáltuk, és ha az prím volt, akkor ezután n-t, n-1-et és n+1-et már nem kell vizsgálni (n volt a prím, előtte és utána csak nem prímek vannak), illetve ha nem volt prím, akkor csak magát n-t nem kell vizsgálni, habár n-1, vagy n+1 még lehet prím.
 
 Sok számítás után egy darab összefüggő lista lesz a prímekkel, amit majd néha felbukkanó 1, vagy 3 számjegyeket lefedő intervallumok fognak követni összefüggéstelen listában. Néha ezek a listák összeérhetnek, amik esetében ezeket jó lenne kombinálni.
 
