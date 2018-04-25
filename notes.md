@@ -2,17 +2,6 @@
 
 ---
 
-# előszűrés N szám prímség vizsgálatához
-
-* (N > 5) nézzük meg az utolsó számjegyet. ha az 0, 2, 4, 5, 6, 8 akkor nem prím, mehetünk is tovább (1-et, 3-at, 7-et és 9-et figyelünk csak)
-* minden prim 6k+-1 alakban van, ezért ha a +-1-es alak nem osztható hárommal (számjegyek összege nem osztható hárommal) akkor nem prim, mehetünk tovább
-* a páratlan prímekből (N > 2) csak 1 olyan eset van, ahol 3 egymást követi 2 távolságra: 3 5 7. Minden más esetben 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk, ahol minden lépés két prím, valamint prím és lyuk között 2 (prím hármasok, melyek legkisebb formája a 2-3-5 és 3-5-7 hármasokon kívül: p, p+2, p+6; p, p+4, p+6)
-
-## extra infók, amik talán használhatóak előszűréshez
-
-* bármilyen n esetén lesz legalább 1 prím n és 2n között
-* ha n prím, akkor a következő prím n és 2n között kell, hogy legyen; ha n > 100, akkor n és 1.2n között lesz a következő prím
-
 # oszthatóság vizsgálat
 
 **0 minden számmal osztható**
@@ -342,3 +331,7 @@ primes - a prímek listája
 ### Intervallum
 
 nem kezeljük le az indirekt módon kiszámolt prímeket
+
+# Konkurencia
+
+https://primes.utm.edu/primes/search.php
