@@ -2,11 +2,17 @@
 
 ---
 
-# Kiszámolt vs lehetséges prímek - A számegyenes 3 részre való osztása
+# Kiszámolt vs lehetséges prímek
 
 A számegyenes alsó vége nálunk 2, hiszen az a legkisebb prím, 0 és 1 sose szerepel egyik műveletben sem.
 
-## N adott, mik a lehetséges osztók?
+A számegyenest 3 részre osztjuk, amelyek az alábbiak:
+
+1. osztók, avagy a kiszámolt prímek
+2. irreleváns
+3. többszörösök, melyek között lehetséges új prímek vannak
+
+## 1 többszörös(N) adott, mik a lehetséges osztók?
 
 A 2 és N közötti szakaszt 3 részre tudjuk felosztani: `[2..isqrt(N)] [isqrt(N)+1..N-1] [N]`
 
@@ -15,7 +21,7 @@ A 2 és N közötti szakaszt 3 részre tudjuk felosztani: `[2..isqrt(N)] [isqrt(
 Vegyük első körben csak a legnagyobb kiszámolt prímet(P). Az ahhoz tartozó N-ek az alábbi módon alakulnak:
 
 * ha `P=2`, akkor `[P] [P+1..P^2] [P^2+1..(P+1)^2-1]` = `[2] [3..4] [5..8]`
-* ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^-1]`
+* ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^2-1]`
 
 **Ez a párhuzamos számítás egyik kulcsa**, hiszen ha adott az első rész, akkor tudjuk egyszerre ellenőrizni a 3. részben szereplő összes számot anélkül, hogy azok ellenőrzése során kétszer ugyanazokat a számításokat végeznénk.
 
