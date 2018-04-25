@@ -19,7 +19,7 @@ ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos mome
 37-ig a számegyenes felosztása 3 intervallumba:
   [2..6] [7..36] [37]
   
-  első tömb: számításhoz;
+  első tömb: számításhoz - lehetséges osztók;
   második tömb: irreleváns;
   harmadik tömb: maga a szám;
 
@@ -31,7 +31,7 @@ ezt a számot mindenképp célszerű kiszámolni. ez miatt ez is egy fontos mome
 a 3 részre felosztott számegyenes első intervalluma alapján hány szám prímségét lehet egyszerre ellenőrizni úgy, hogy azok ne akadjanak össze?
 máshogy fogalmazva: ha az első intervallum adott, akkor mik lehetnek a 3. intervallumban?
 
-[2 .. x] [x+1 .. x^2-1] [x^2] - ez a max?
+[2 .. n] [n+1 .. n^2-1] [n^2] - ez a max?
 
 2^2      = 4
 2.9999^2 = 8.99940001 (~9 = 3^2)
@@ -204,31 +204,13 @@ js Number.MAX_SAFE_INTEGER                  9007199254740991 - 2^53-1
 max uint64                              18446744073709551615 = 2^64-1
 windows 7 calc.exe          99999999999999999999999999999999 = 10^32-1 ~= 2^106.301
 
-Mi lenne, ha egymás mellé tennénk 2db uint64-et, mint ahogy a 16 bites AX-et is össze lehet rakni 2 db 8 bites AL és AH regiszterekből?
-Azzal 128 bitet kapnánk -> 2^128-1 lenne a legnagyobb szám (uint128)
+Jön a [BigInt](https://github.com/tc39/proposal-bigint) a JS-be, amivel 2^64-1-et el tudjuk érni. Ha a JS támogatja majd a BigInt-et, akkor nem szabad megelégednünk majd a 64 bittel, az mindenki számára elérhető lesz. Jó lenne akkor már kapásból 128 bitre felkészülni.
 
-Ha sikerülne a fenti 2*uint64 összeragasztása, akkor igazából már akármennyit össze lehetne rakni.
-Viszont valahogy dinamikusra kellene csinálni az egészet, hiszen nem számolunk mindig 128 bites számokkal, lehetne ezt valahogy dinamikusan növekvőre csinálni.
+Az ArrayBuffer segítségével össze lehetne ragasztani több uint-et is, mint ahogy assemblyben az AX-hez össze lehetett rakni az AL-t és AH-t. Jó lenne, ha a kód le tudná körözni a windows számológépet és gond nélkül kezelne 128 bites számokat is.
 
-Példa, hogy hogyan lehetne két i32-ből i64-et emulálni: https://developer.mozilla.org/en-US/docs/Mozilla/js-ctypes/js-ctypes_reference/UInt64
+Az ArrayBufferrel tömören egymás mellé lehet tenni a számokat és azok binárisan tárolódnának, viszont valami olyan megoldás kellene, ahol változó méretűek lennének a számokra lefoglalt byte-ok. Ugyanis nem dolgoznánk mindig 128 bites számokkal. Erre tökéletes lenne a string, de egy kicsit pazarlónak tűnik az, hogy 1 számjegyre 16 bitet használunk.
 
-! Ha a JS támogatja majd a BigInt-et, akkor nem szabad megelégednünk majd a 64 bittel, az mindenki számára elérhető lesz. Jó lenne akkor már kapásból 128 bitre felkészülni.
-
-A bitcoin már csinált 256 bites uint emulációt is: https://github.com/bitcoin/bitcoin/blob/master/src/uint256.h - operator overloaddal egész elegáns a megoldás
-Íme, az uint1024 se jelent gondot: https://github.com/bajtos/knapsack-crypto/blob/master/uint1024.c
-
-Jön a BigInt a JS-be: https://github.com/tc39/proposal-bigint
-
-Egyelőre az i64 az nem szökhet ki a webassembly világából: https://github.com/WebAssembly/design/pull/923
-Viszont tervezik, hogy ha a futtató platform támogatja a BigInt-et, akkor ott menni fog a típuskonvertálás: https://github.com/WebAssembly/design/issues/1172
-
-Az ArrayBuffer ideális jelöltnek tűnik a számok tárolására a string-el szemben. Uint32Array-el lehetne dolgozni, amíg nem lesz elérhető az Uint64Array.
-
-Az ArrayBuffer-el képzett számokkal akkor lehet foglalkozni, ha már az összes fenti kérdés meg van válaszolva és a számításokhoz szükséges összes művelet ki van dolgozva. Az majd egy átfogó képet ad, hogy milyen műveleteket kell tudnunk elvégezni a nagy számokkal. Addig jó lesz a sima javascript-es int.
-
-# távlati célok
-
-Éppen a fent említett dolgok olyan korlátok jelenleg, amik meggátolják hogy belátható időn belül rendes számként tekintsünk a nagyon nagy számokra, és mivel egyik megvalósitás sem ad lehetőséget végtelen méretű számok feldolgozására ezért érdemesebb egyedi - fenti korlátok nélküli - megoldást fejleszteni. És ezért is fontos a jelenlegi rendszerek korlátainak ismerete.
+Az ArrayBuffer-el képzett számokkal akkor érdemes foglalkozni, ha már az összes fenti kérdés meg van válaszolva és a számításokhoz szükséges összes művelet ismeretes. Az majd ad egy átfogó képet arról, hogy milyen műveleteket kell tudnunk elvégezni a nagy számokkal. **Addig jó lesz a sima javascript-es int.**
 
 # mit lehet csinálni ezzel az egésszel, mire tudná használni ezt a felhasználó?
 
@@ -239,17 +221,10 @@ Az ArrayBuffer-el képzett számokkal akkor lehet foglalkozni, ha már az össze
   * tudunk róla jellemzőket, pl az adott prím mersenne prím-e (ez opcionális)
 * ha nem prím, akkor
   * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
-  * tudunk adni prímtényezős bontást
-  * meg tudjuk adni a legkisebb osztót
+  * ki tudjuk számolni a prímtényezős felbontást
+  * ki tudjuk számolni a legkisebb osztót
 * meg tudjuk adni egy adott szám előtti utolsó és utáni első prímet
 * meg tudjuk mondani, hogy egy szám alatt hány db prím található
-* meg tudjuk keresni 2 szám legkisebb közös többszörösét (lcm - least common multiplier) és legnagyobb közös osztóját (gcd - greatest common divisor) (prímtényezős bontás eredményeit tudjuk összesíteni, de erre van más megoldás is)
-
-*Az alábbi műveletek már az lcm-re és gcd-re építenek, amihez nem kell prím faktorizálás, ha Eukleidész algoritmusát használjuk és nem a prím faktorizálást*
-
-* meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e ( `n/m -> gcd(n, m) > 1` )
-* tört egyszerűsítése ( `n/m -> (n/gcd(n, m)) / (m/gcd(n, m))` )
-* vissza tudjuk keresni egy tizedes tört osztóit ( `0.9564 = 0.9564/1 = (0.9564*10000 / 1*100000) = 9564/10000 = (9564/gcd(9564, 10000)) / (10000/gcd(9564, 10000)) = (9564/4) / (10000/4) = 2391/2500` )
 
 # Formátum
 
