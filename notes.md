@@ -20,8 +20,8 @@ A 2 és N közötti szakaszt 3 részre tudjuk felosztani: `[2..isqrt(N)] [isqrt(
 
 Vegyük első körben csak a legnagyobb kiszámolt prímet(P). Az ahhoz tartozó N-ek az alábbi módon alakulnak:
 
-* ha `P=2`, akkor `[P] [P+1..P^2] [P^2+1..(P+1)^2-1]` = `[2] [3..4] [5..8]`
-* ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^2-1]`
+* ha `P=2`, akkor `[P] [P+1..P^2] [P^2+1..(P+1)^2-1]` = `[P] [P+1..P^2] [P^2+1..P^2+2P]` = `[2] [3..4] [5..8]`
+* ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^2-1]` = `[P] [P+1..P^2+1] [P^2+2..P^2+2P]`
 
 **Ez a párhuzamos számítás egyik kulcsa**, hiszen ha adott az első rész, akkor tudjuk egyszerre ellenőrizni a 3. részben szereplő összes számot anélkül, hogy azok ellenőrzése során kétszer ugyanazokat a számításokat végeznénk.
 
