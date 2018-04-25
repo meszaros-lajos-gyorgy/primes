@@ -244,11 +244,26 @@ A kiszámolt prímeknél figyelembe kell azt is venni, amit a prímhármasok el�
 
 ## Nagyon nagy számok
 
-Egy idő után a számok prímség ellenőrzése a korábbi prímek segítségével még akkor is érezhetően hosszú és processzorigényes lesz, ha az összes eddigi és jövőbeli optimalizálást alkalmazzuk. Ha már egy nagy szám kiszámítása elkezdődött, de az adott kliens nem tud a végére érni, akkor se kellene az addig elért eredményeket kidobni a kukába, el kéne tárolni, hogy X-et vizsgálta a kliens és Y-ig jutott (ameddig is bizton tudja állítani, hogy <=Y prímek nem osztják X-et)
+### Számítás félbeszakítása
+
+Egy idő után a számok prímség ellenőrzése a korábbi prímek segítségével még akkor is érezhetően hosszú és processzorigényes lesz, ha az összes eddigi és jövőbeli optimalizálást alkalmazzuk. Ha már egy nagy szám kiszámítása elkezdődött, de az adott kliens nem tud a végére érni, akkor se kellene az addig elért eredményeket kidobni a kukába, el kéne tárolni, hogy X-et vizsgálta a kliens és Y-ig jutott (ameddig is bizton tudja állítani, hogy <=Y prímek nem osztják X-et).
+
+Az adott szám félbehagyott kiszámítása kell, hogy nagyobb prioritást kapjon az új számok ellenőrzésével szemben. Az adott számítás folytatását fogja megkapni a legelső szabad kliens.
 
 TODO: ennek az információnak a tárolásához jó lenne kitalálni valami formátumot, avagy hogyan lehetne bővíteni az eddigi sémánkat
+
+### 1 prím számíttatása több klienssel
+
+Lehet-e egy adott számot több klienssel is egyszerre számoltatni, illetve érdemes-e?
+
+Úgy képzelem el, hogy 2 kliens feliratkozik ugyanarra a számra és megkapják az instrukciót, miszerint kliens1 minden páros(2, 5, 11, 17...), kliens2 minden páratlanadik prímet(3, 7, 13, 19...) kellene ellenőriznie. Ha az egyik visszajelez, hogy megvan, akkor a szerver broadcast-olja az összes ezzel foglalkozó kliensnek, hogy hagyja abba a számítást, akik erre új számot kérnének.
+
+ * hány prím kiszámolása után kell több részbe tördelni egy prím ellenőrzését?
+ * milyen állomások után kelljen 2-be, 3-ba, 4-be, stb törni a számítást?
+ * esetleg az egészet prioritás döntse el és lehessen egyes számokra nagyobb prioritást adni valamilyen admin felületről?
+
 TODO2: valahova külön helyre összesíteni a formátumot, ahogyan eltároljuk az adatokat.
-TODO3: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva
+TODO3: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva?
 TODO4: pl 10000 kiszámolt prímenként eltároljuk az eredményeket fájlba és mindig csak egy adott fájl van nyitva, ami tartalmazza a szükséges infókat a további kereséshez. Esetleg van olyan DB, ami ezt könnyen lekezeli?
 
 ### Mennyit is kell számolnunk
@@ -307,3 +322,23 @@ Az ArrayBuffer-el képzett számokkal akkor lehet foglalkozni, ha már az össze
 * meg tudjuk mondani, hogy 2 számból képzett arány egyszerűsíthető-e ( `n/m -> gcd(n, m) > 1` )
 * tört egyszerűsítése ( `n/m -> (n/gcd(n, m)) / (m/gcd(n, m))` )
 * vissza tudjuk keresni egy tizedes tört osztóit ( `0.9564 = 0.9564/1 = (0.9564*10000 / 1*100000) = 9564/10000 = (9564/gcd(9564, 10000)) / (10000/gcd(9564, 10000)) = (9564/4) / (10000/4) = 2391/2500` )
+
+# Formátum
+
+## Az example-ben található változók jelentése
+
+### Globális adatok
+
+working - számolunk-e éppen
+speed - interval sebesség ms-ben
+throttle - egy intervalra mennyi számítást végezzünk?
+
+### Bázis
+
+lastCheckedNumber - mi az eddigi legnagyobb szám, amit ellenőriztünk
+limit - a rendszer meddig menjen el a prímek kiszámolásával
+primes - a prímek listája
+
+### Intervallum
+
+nem kezeljük le az indirekt módon kiszámolt prímeket
