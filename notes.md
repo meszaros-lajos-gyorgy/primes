@@ -27,15 +27,54 @@ Vegyük első körben csak a legnagyobb kiszámolt prímet(P). Az ahhoz tartozó
 
 A fenti példában a második részt kitölti az, ha a fenti műveletet végigzongorázzuk a P alatti összes N-re (nem csak prím):
 
-Példa:
-
 `[2] [3] [4..8]` - `3`-at nem tudjuk kiszámolni
 
-`[3] [4..8] [9..15]` - a második rész megegyezik a `P=2` harmadik részével
+`[3] [4..8] [9..15]` - a második résznél `4..8`-ig fedezi `P=2`
 
 `[4] [5..15] [16..24]` - a második résznél `5..8`-ig fedezi `P=2`, `9..15`-ig pedig fedezi `P=3`
 
-`[5] [6..24] [25..35]` - a második résznél `6..15`-ig fedve vagyunk, `16..24`-ig pedig fedezi `P=4`
+`[5] [6..24] [25..35]` - a második résznél `6..8`-ig fedezi `P=2`, `9..15`-ig fedezi `P=3`, `16..24`-ig pedig fedezi `P=4`
+
+## Van-e a 3. részben garantáltan prím?
+
+**Az alábbi számítások mind feltételezik, hogy P>2!**
+
+### A második és harmadik tömbök elemszáma
+
+`P`, mint legnagyobb kiszámolt prím mellett a második rész `P^2-P` db elemet, míg a harmadik `2P-2` = `2(P-1)` db elemet tartalmaz. A kettő rész összesen `P^2+P-2` = `(P+2)(P-1)` = `P(P+1)-2` db elemet tartalmaz.
+
+A részek elemszáma `P` növekedésével úgy konvergálnak, hogy a második rész egyre nagyobb lesz, míg a harmadik egyre kisebb. Százalékos arányuk az alábbiak szerint alakulnak:
+( a lista tartalmaz nem prímeket is a sorozatok könnyebb megértésének érdekében )
+
+```
+ P | P^2-P       | 2P-2       | P^2+P-2
+---+-------------+------------+---------
+ 3 | 6  | 60%    | 4  | 40%   | 10
+ 4 | 12 | 66.6%  | 6  | 33.3% | 18
+ 5 | 20 | 71.4%  | 8  | 28.5% | 28
+ 6 | 30 | 75%    | 10 | 25%   | 40
+ 7 | 42 | 77.7%  | 12 | 22.2% | 54
+ 8 | 56 | 80%    | 14 | 20%   | 70
+
+...
+
+ P   | P^2-P          | 2P-2        | P^2+P-2
+-----+----------------+-------------+---------
+ 97  | 9312  | 97.9%  | 192 | 2.02% | 9504
+ 101 | 10100 | 98.05% | 194 | 1.94% | 10294
+```
+
+A második szakasz elemeit úgy képezhetjük, hogy az utolsó két szám különbségét megnöveljük kettővel és azt adjuk az utolsó számhoz. A különbség az első kettő, azaz a `P=3` és a `P=4`-hez tartozó elemszámok között 6, ami megegyezik a `P=3`-hoz tartozó kezdő elemszámmal.
+
+A harmadik szakasz elemei kettesével növekednek, `P=3` esetén 4 elemmel indítunk és így képezhetjük a számokat.
+
+### Bertrand–Chebyshev theorem sizes - TODO clean this up
+
+For `P(n) < 100`: `P(n) < P(n+1) < 2P(n)`
+
+This means, that after `P(n)`, there should be at least 1 prime in the next `P(n)-2` numbers
+
+Miért angolul írtam ezt?
 
 ---
 
