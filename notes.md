@@ -2,48 +2,36 @@
 
 ---
 
-# Kiszámolt vs lehetséges prímek
+# Osztók és többszörösök
 
-A számegyenes alsó vége nálunk 2, hiszen az a legkisebb prím, 0 és 1 sose szerepel egyik műveletben sem.
+A lenti példákban az osztókat és többszörösöket számegyenesre helyezzük, amiből 3 egymás után következő szakaszt tudunk kiemelni.
 
-A számegyenest 3 részre osztjuk, amelyek az alábbiak:
+## Egy adott szám összes lehetséges osztója
 
-1. osztók, avagy a kiszámolt prímek
-2. irreleváns
-3. többszörösök, melyek között lehetséges új prímek vannak
+Az `N`-hez tartozó összes lehetséges osztó `2` és `isqrt(N)` között található, ha ott egyik szám se osztja, akkor N prím. `isqrt(N)` és `N` között van egy olyan szakasz, ahol olyan számok szerepelnek, amelyek biztosan nem osztják `N`-t. Ez a 3 rész az alábbi módon írható le: `[2..isqrt(N)] [isqrt(N)+1..N-1] [N]`
 
-## 1 többszörös(N) adott, mik a lehetséges osztók?
+Ebből az első rész a prímeket, mint lehetséges osztókat, a második a számunkra irreleváns számokat, míg a harmadik `N`-t tartalmazza.
 
-A 2 és N közötti szakaszt 3 részre tudjuk felosztani: `[2..isqrt(N)] [isqrt(N)+1..N-1] [N]`
+## Egy adott osztóhoz tartozó összes lehetséges négyzetszám (isqrt megfordítva)
 
-## Kiszámolt prímek adottak, mely N-ek a többszörösei?
+Az isqrt(N) függvény több N-re is ugyanazt az értéket adja, **így azok prímségét párhuzamosan lehet vizsgálni**, egyik N se lesz bármely másik osztója.
 
-Vegyük első körben csak a legnagyobb kiszámolt prímet(P). Az ahhoz tartozó N-ek az alábbi módon alakulnak:
+Ha az előző pontban a 3 részre osztott számegyenes első szakaszából kiemelünk egy `P` számot, akkor mely `N` számokra igaz az, hogy `P = isqrt(N)`?
+
+A 3 rész `P` viszonylatában így alakul:
 
 * ha `P=2`, akkor `[P] [P+1..P^2] [P^2+1..(P+1)^2-1]` = `[P] [P+1..P^2] [P^2+1..P^2+2P]` = `[2] [3..4] [5..8]`
 * ha `P>2`, akkor `[P] [P+1..P^2+1] [P^2+2..(P+1)^2-1]` = `[P] [P+1..P^2+1] [P^2+2..P^2+2P]`
 
-**Ez a párhuzamos számítás egyik kulcsa**, hiszen ha adott az első rész, akkor tudjuk egyszerre ellenőrizni a 3. részben szereplő összes számot anélkül, hogy azok ellenőrzése során kétszer ugyanazokat a számításokat végeznénk.
+## Van-e az N-hez tartozó négyzetszámok között garantáltan prím?
 
-A fenti példában a második részt kitölti az, ha a fenti műveletet végigzongorázzuk a P alatti összes N-re (nem csak prím):
+Mivel 2 a legkisebb prím és az ahhoz tartozó felosztás egyszeri, ezért a továbbiakban minden számításra és állításra azt feltételezzük, hogy `P>2`!
 
-`[2] [3] [4..8]` - `3`-at nem tudjuk kiszámolni
-
-`[3] [4..8] [9..15]` - a második résznél `4..8`-ig fedezi `P=2`
-
-`[4] [5..15] [16..24]` - a második résznél `5..8`-ig fedezi `P=2`, `9..15`-ig pedig fedezi `P=3`
-
-`[5] [6..24] [25..35]` - a második résznél `6..8`-ig fedezi `P=2`, `9..15`-ig fedezi `P=3`, `16..24`-ig pedig fedezi `P=4`
-
-## Van-e a 3. részben garantáltan prím?
-
-**Az alábbi számítások mind feltételezik, hogy P>2!**
-
-### A második és harmadik tömbök elemszáma
+### A második és harmadik részek elemszáma
 
 `P`, mint legnagyobb kiszámolt prím mellett a második rész `P^2-P` db elemet, míg a harmadik `2P-2` = `2(P-1)` db elemet tartalmaz. A kettő rész összesen `P^2+P-2` = `(P+2)(P-1)` = `P(P+1)-2` db elemet tartalmaz.
 
-A részek elemszáma `P` növekedésével úgy konvergálnak, hogy a második rész egyre nagyobb lesz, míg a harmadik egyre kisebb. Százalékos arányuk az alábbiak szerint alakulnak:
+A részek elemszáma `P` növekedésével úgy alakulnak, hogy a második rész egyre nagyobb lesz, míg a harmadik egyre kisebb. Százalékos arányuk az alábbiak szerint alakulnak:
 ( a lista tartalmaz nem prímeket is a sorozatok könnyebb megértésének érdekében )
 
 ```
@@ -64,17 +52,17 @@ A részek elemszáma `P` növekedésével úgy konvergálnak, hogy a második r�
  101 | 10100 | 98.05% | 194 | 1.94% | 10294
 ```
 
-A második szakasz elemeit úgy képezhetjük, hogy az utolsó két szám különbségét megnöveljük kettővel és azt adjuk az utolsó számhoz. A különbség az első kettő, azaz a `P=3` és a `P=4`-hez tartozó elemszámok között 6, ami megegyezik a `P=3`-hoz tartozó kezdő elemszámmal.
+A 2. rész elemeit úgy képezhetjük, hogy az utolsó két szám különbségét megnöveljük kettővel és azt adjuk az utolsó számhoz. A különbség az első kettő, azaz a `P=3` és a `P=4`-hez tartozó elemszámok között 6, ami megegyezik a `P=3`-hoz tartozó kezdő elemszámmal.
 
-A harmadik szakasz elemei kettesével növekednek, `P=3` esetén 4 elemmel indítunk és így képezhetjük a számokat.
+A 3. rész elemei kettesével növekednek, `P=3` esetén 4 elemmel indítunk és így képezhetjük a számokat.
 
-### Bertrand–Chebyshev theorem sizes - TODO clean this up
+### Bertrand–Chebyshev theorem méretek
 
-For `P(n) < 100`: `P(n) < P(n+1) < 2P(n)`
+Minden `N`-re elmondható, hogy  `N < P < 2N`.
 
-This means, that after `P(n)`, there should be at least 1 prime in the next `P(n)-2` numbers
+Ez azt jelenti, hogy az `N` után következő `2N-2` db szám között kell lennie legalább 1 prímnek.
 
-Miért angolul írtam ezt?
+Az előző pontban található hármas felosztásban a 3. részben `P`-hez `2P-2` db elem tartozik, ami megegyezik a `2N-2` formával, így azok közt **garantáltan találunk prímszámot**.
 
 ---
 
