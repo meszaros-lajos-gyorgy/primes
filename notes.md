@@ -44,8 +44,6 @@ Itt már nem tudunk csak 1 számmal dolgozni, ehhez 2 prím kell, ez intervallum
 
 ## Bázis jellemzői és a bővítése
 
-A beégetett prímek mennyisége attól függ, hogy hány előszűrési feltételt veszünk figyelembe a kódban. A prímhármasok figyelembe vétele miatt a beégetett prímekkel lefedjük az egymáshoz legközelebb álló prímhármasok 2 esetét, így a beégetett prímeket minimum 7-ig kell felvenni. További előszűrések kivételei feljebb tornászhatják ezt a minimumot.
-
 // az alábbi minden intervallumra érvényes
 A kiszámolt prímeknél figyelembe kell azt is venni, amit a prímhármasok előszűrése megkövetel: nem lehet 1-nél több 2 távolságra levő prím egymás után. Páratlan prímeket nézve az alábbi módon alakulnak a további páratlan számok: 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk, ahol minden lépés 2 prím, valamint prím és lyuk között 2. Ezt úgy tudjuk figyelembe venni, hogy egy számlálóban külön nyílván tartjuk, a lista végén álló prímek visszafele nézve hány db 2 távra levő prímpárral rendelkeznek, amit természetesen elég csak addig tárolni, amíg ez a távolság nem lesz több, mint 2. Mivel ezek a 2 távra levő prímpárok(ikerprímek) 2-3-5 és 3-5-7 esetén kívül maximum 1-szer szerepelnek egymás után, így az utolsó távolság vagy ikerprím volt, vagy nem. Ha az utolsó 2 prím ikerprímet alkotott - esetleg még az előtte levő is, ha a legutolsó prímszám 7 volt -, akkor mindenképp a következő prím már legalább 4 távolságra lesz. Erre a célra egy boolean tökéletesen elegendő.
 
@@ -92,20 +90,6 @@ Az ArrayBuffer segítségével össze lehetne ragasztani több uint-et is, mint 
 Az ArrayBufferrel tömören egymás mellé lehet tenni a számokat és azok binárisan tárolódnának, viszont valami olyan megoldás kellene, ahol változó méretűek lennének a számokra lefoglalt byte-ok. Ugyanis nem dolgoznánk mindig 128 bites számokkal. Erre tökéletes lenne a string, de egy kicsit pazarlónak tűnik az, hogy 1 számjegyre 16 bitet használunk.
 
 Az ArrayBuffer-el képzett számokkal akkor érdemes foglalkozni, ha már az összes fenti kérdés meg van válaszolva és a számításokhoz szükséges összes művelet ismeretes. Az majd ad egy átfogó képet arról, hogy milyen műveleteket kell tudnunk elvégezni a nagy számokkal. **Addig jó lesz a sima javascript-es int.**
-
-# mit lehet csinálni ezzel az egésszel, mire tudná használni ezt a felhasználó?
-
-* meg tudjuk mondani, hogy az adott szám prím-e
-* ha prím, akkor
-  * meg tudjuk mondani, hogy hanyadik
-  * meg tudjuk mondani, melyek az előző és következő prímek és hogy azok milyen távra vannak
-  * tudunk róla jellemzőket, pl az adott prím mersenne prím-e (ez opcionális)
-* ha nem prím, akkor
-  * meg tudjuk mondani, melyek a legközelebbi prímszámok a szám előtt és után és hogy azok milyen távra vannak
-  * ki tudjuk számolni a prímtényezős felbontást
-  * ki tudjuk számolni a legkisebb osztót
-* meg tudjuk adni egy adott szám előtti utolsó és utáni első prímet
-* meg tudjuk mondani, hogy egy szám alatt hány db prím található
 
 # Formátum
 

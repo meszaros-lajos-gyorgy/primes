@@ -28,7 +28,7 @@ A special case of intervals, which always has it's starting point at 0.
 
 This gives home to all the lower primes, which tells us how far we can check the primality of numbers without having to find new primes.
 
-It contains a few low primes necessary to cover the exceptions of simple primality filters. For example a powerful filter for primality is to check, if the number ends with 1, 3, 7 or 9, but that only works for primes above 5. This would make sure, that the primality filters would have one less checks to do, because we guarantee, that the number we give would not fall into the range of exceptions.
+It contains a few low primes necessary to cover the exceptions of simple primality filters. For example a powerful filter for primality is to check, if the number ends with 1, 3, 7 or 9, but that only works for primes above `5`. Other primality filteres might set this minimum to a higher number in the future. This would make sure, that the primality filters would have one less checks to do, because we guarantee, that the number we give would not fall into the range of exceptions.
 
 ## Gap
 
