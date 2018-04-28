@@ -10,17 +10,6 @@ Egy új intervallumhoz 1 szám is elég, ami 3 fajta lehet:
 * nem prím, páratlan
 * nem prím, páros
 
-### Páros/Páratlan vizsgálat
-
-* Ha N prím és N > 3, akkor [N-1 .. N+1]
-* Ha N nem prím, páratlan és N > 3, akkor [N-1 .. N+1]
-* Ha N nem prím, páros és N > 2, akkor [N]
-
-Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
-
-* [N] - 1 hosszú - N páros
-* [N-1..N+1] - 3 hosszú - N páratlan
-
 ### 1-3-7-9 vizsgálat
 
 * Ha N prím, akkor: N=...1 -> [N-1..N+1] | N=...3 -> [N-1..N+3] | N=...7 -> [N-3..N+1] | N=...9 -> [N-1..N+1]
