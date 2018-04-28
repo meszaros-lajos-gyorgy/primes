@@ -1,17 +1,4 @@
-# English translation will come in the future, but at this point it is easier for me to plan in hungarian.
-
----
-
 # Az ideális séma a prímek és a töredékek tárolására
-
-Az intervallumok közötti nem ellenőrzött számok halmaza a **rés (gap)**.
-
-Az intervallumokon belül garantálni kell, hogy ne legyen rés és minden prímje fel legyen fedezve.
-
-Az intervallumok közötti rések feltöltéséhez a prioritást mindig a bázis és az utána levő első intervallum közti rés kapja, így garantált, hogy
-  
-  * a bázis növekszik és
-  * a lehetséges kiszámolandó prímek közül mindig a legegyszerűbbek kerülnek kiszámításra
 
 ## Intervallumok létrehozása 1db szám segítségével
 
@@ -56,10 +43,6 @@ Itt már nem tudunk csak 1 számmal dolgozni, ehhez 2 prím kell, ez intervallum
 ## 2 intervallum egyesítése
 
 ## Bázis jellemzői és a bővítése
-
-A prímek pozitív egész számok, ezért a bázis alsó határa mindig 0.
-
-Annak érdekében, hogy az előszűrési feltételek kivételeit ne kelljen minden egyes újabb prímnél vizsgálni, a bázisba bele van égetve az első pár prím. Ezek a **beégetett prímek**. Pl ha N 1-3-7-9-re végződik akkor esélyes, hogy prím, de csak akkor, ha N>5. Ennek érdekében az 5 és azalatti prímeket érdemes előre felvenni a kiszámolt prímek közé, hiszen a kivétel csak 3 db prímet érintene a lista elejéről.
 
 A beégetett prímek mennyisége attól függ, hogy hány előszűrési feltételt veszünk figyelembe a kódban. A prímhármasok figyelembe vétele miatt a beégetett prímekkel lefedjük az egymáshoz legközelebb álló prímhármasok 2 esetét, így a beégetett prímeket minimum 7-ig kell felvenni. További előszűrések kivételei feljebb tornászhatják ezt a minimumot.
 
