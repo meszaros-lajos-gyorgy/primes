@@ -6,6 +6,8 @@ The project aims to create a dynamically expanding lookup table for prime number
 
 ## Goals
 
+This repo aims to be able to
+
 * tell whether a number is a prime or not
   * if prime, then
     * tell, how [manyeth](https://english.stackexchange.com/questions/21876/how-to-ask-a-question-to-get-an-ordinal-number-answer) it is
