@@ -7,3 +7,10 @@ See [Divisors and multipliers](./divisors-and-multipliers.md#all-possible-square
 ## Aborting a primality check
 
 ## Checking a single number with multiple clients
+
+The primality check for a given number `N` can be distributed between `M` number of clients. First, the primes in the [base](./building-blocks#base) need to be sorted into `M` groups in a way, that the 1st group gets all the `kM+1`-th primes, the 2nd group gets all the `kM+2`-th primes, and repeat this until the last group gets all the `kM+(M-1)` = `(k+1)M-1`-th primes. All clients do their calculation from the lower numbers to the highest and when they are finished - either because of running out of primes to check or a divisor have been found - they reply back to the server. When the server gets a response from any of the clients, that a divisor have been found, it broadcasts the instruction to all clients to stop calculating the number. Then the clients may ask for another task from the server.
+
+### Open questions about this topic
+
+* after having how many primes should the server start breaking up primal checks to multiple clients?
+* at what steps does the server need to split the task into 2, 3, 4 or any other number?

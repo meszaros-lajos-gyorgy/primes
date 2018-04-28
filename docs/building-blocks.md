@@ -1,4 +1,4 @@
-# Glossary
+# Building blocks
 
 ## Primality filters
 
@@ -38,4 +38,3 @@ The priority for filling up gaps should always go for the lowest gap. This would
 
 * the base grows
 * it is always the simpler numbers, which get calculated before the difficult ones
-

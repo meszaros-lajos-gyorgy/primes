@@ -59,20 +59,6 @@ Az adott szám félbehagyott kiszámítása kell, hogy nagyobb prioritást kapjo
 
 TODO: ennek az információnak a tárolásához jó lenne kitalálni valami formátumot, avagy hogyan lehetne bővíteni az eddigi sémánkat
 
-### 1 prím számíttatása több klienssel
-
-Lehet-e egy adott számot több klienssel is egyszerre számoltatni, illetve érdemes-e?
-
-Úgy képzelem el, hogy 2 kliens feliratkozik ugyanarra a számra és megkapják az instrukciót, miszerint kliens1 minden páros(2, 5, 11, 17...), kliens2 minden páratlanadik prímet(3, 7, 13, 19...) kellene ellenőriznie. Ha az egyik visszajelez, hogy megvan, akkor a szerver broadcast-olja az összes ezzel foglalkozó kliensnek, hogy hagyja abba a számítást, akik erre új számot kérnének.
-
- * hány prím kiszámolása után kell több részbe tördelni egy prím ellenőrzését?
- * milyen állomások után kelljen 2-be, 3-ba, 4-be, stb törni a számítást?
- * esetleg az egészet prioritás döntse el és lehessen egyes számokra nagyobb prioritást adni valamilyen admin felületről?
-
-TODO2: valahova külön helyre összesíteni a formátumot, ahogyan eltároljuk az adatokat.
-TODO3: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva?
-TODO4: pl 10000 kiszámolt prímenként eltároljuk az eredményeket fájlba és mindig csak egy adott fájl van nyitva, ami tartalmazza a szükséges infókat a további kereséshez. Esetleg van olyan DB, ami ezt könnyen lekezeli?
-
 ### Mennyit is kell számolnunk
 
 TODO: Pár példa arra, hogy a prímek ellenőrzéséhez mennyit kell számolnunk és erre esetleg képlet
@@ -114,3 +100,10 @@ nem kezeljük le az indirekt módon kiszámolt prímeket
 # Konkurencia
 
 https://primes.utm.edu/primes/search.php
+
+------------
+
+TODO: esetleg az egészet prioritás döntse el és lehessen egyes számokra nagyobb prioritást adni valamilyen admin felületről?
+TODO: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva?
+TODO: pl 10000 kiszámolt prímenként eltároljuk az eredményeket fájlba és mindig csak egy adott fájl van nyitva, ami tartalmazza a szükséges infókat a további kereséshez. Esetleg van olyan DB, ami ezt könnyen lekezeli?
+TODO: Ha egy fájl van, akkor azt iduláskor beolvassa a szerver, majd időközönként ment. Esetleg egy watcher-t is lehetne rá beállítani chokidarral, hiszen a fájl változhat
