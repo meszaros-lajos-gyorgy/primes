@@ -1,34 +1,5 @@
 # Az ideális séma a prímek és a töredékek tárolására
 
-## Intervallumok létrehozása 1db szám segítségével
-
-Az előszűrési feltételek segítségével számítás nélkül tudjuk kijjebb tolni egy intervallum határát.
-
-Egy új intervallumhoz 1 szám is elég, ami 3 fajta lehet:
-
-* prím
-* nem prím, páratlan
-* nem prím, páros
-
-### 1-3-7-9 vizsgálat
-
-* Ha N prím, akkor: N=...1 -> [N-1..N+1] | N=...3 -> [N-1..N+3] | N=...7 -> [N-3..N+1] | N=...9 -> [N-1..N+1]
-* Ha N nem prím és páratlan, akkor: N=...5 -> [N-1..N+1]
-* Ha N nem prím és páros, akkor: N=...0 -> [N] | N=...2 -> [N] | N=...4 -> [N..N+2] | N=...6 -> [N-2..N] | N=...8 -> [N]
-
-Összegezve a lefedett számok mennyisége szerint növekvő sorrendben:
-
-* [N] - 1 hosszú - N={...0, ...2, ...8}
-* [N-1..N+1] - 3 hosszú - N={...1, ...5, ...9}
-* [N..N+2] - 3 hosszú - N={...4}
-* [N-2..N] - 3 hosszú - N={...6}
-* [N-1..N+3] - 5 hosszú - N={...3}
-* [N-3..N+1] - 5 hosszú - N={...7}
-
-### Prím hármasok
-
-Itt már nem tudunk csak 1 számmal dolgozni, ehhez 2 prím kell, ez intervallumok kombinálásánál lehetne hasznos.
-
 ## 2 intervallum egyesítése
 
 ## Bázis jellemzői és a bővítése
