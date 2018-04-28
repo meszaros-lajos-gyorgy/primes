@@ -8,7 +8,7 @@
 There is a general, recursive pattern for checking primes from 7 and above:
 
 1. get the last digit off from the number N, which we want to check, if divisible by P prime
-2. multiply that last digit by a given number (see [divisibility rules for the first 1000 primes](../docs/divisibility-rules-for-the-first-1000-primes.pdf) for the multiplier)
+2. multiply that last digit by a given number (see [divisibility rules for the first 1000 primes](./divisibility-rules-for-the-first-1000-primes.pdf) for the multiplier)
 3. add the result to what remained from number N
 4. the result should be checked, if it is divisible by P
 5. if the result is still too big, then repeat the process by substituting number N with our result from step 3
