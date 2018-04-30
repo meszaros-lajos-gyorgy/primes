@@ -25,26 +25,6 @@ Az ArrayBufferrel tömören egymás mellé lehet tenni a számokat és azok bin�
 
 Az ArrayBuffer-el képzett számokkal akkor érdemes foglalkozni, ha már az összes fenti kérdés meg van válaszolva és a számításokhoz szükséges összes művelet ismeretes. Az majd ad egy átfogó képet arról, hogy milyen műveleteket kell tudnunk elvégezni a nagy számokkal. **Addig jó lesz a sima javascript-es int.**
 
-# Formátum
-
-## Az example-ben található változók jelentése
-
-### Globális adatok
-
-working - számolunk-e éppen
-speed - interval sebesség ms-ben
-throttle - egy intervalra mennyi számítást végezzünk?
-
-### Bázis
-
-lastCheckedNumber - mi az eddigi legnagyobb szám, amit ellenőriztünk
-limit - a rendszer meddig menjen el a prímek kiszámolásával
-primes - a prímek listája
-
-### Intervallum
-
-nem kezeljük le az indirekt módon kiszámolt prímeket
-
 # Konkurencia
 
 https://primes.utm.edu/primes/search.php

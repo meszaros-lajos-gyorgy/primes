@@ -2,12 +2,15 @@ import {
   findPrimes
 } from '../src/index'
 
-let lastCheckedNumber = 0
-let working = true
-let speed = 100
-let throttle = 1000
-let limit = 100
-let primes
+// global data
+let working = true // are we calculating at the moment
+let speed = 100 // interval speed in milliseconds
+let throttle = 1000 // number of calculations per interval
+
+// base
+let lastCheckedNumber = 0 // what is the largest number, that we've checked so far?
+let limit = 100 // until what should we raise the lastCheckedNumber?
+let primes // list of primes
 
 let worker
 
