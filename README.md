@@ -19,3 +19,5 @@ This repo aims to be able to
 * tell the biggest prime before, and the lowest prime after a given number
 * tell how many primes are there before a given number
 * tell what the nth prime is based on the given `N`
+
+_This project is inspired by Marcus du Sautoy's "The Music of the Primes" book_

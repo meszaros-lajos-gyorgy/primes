@@ -7,18 +7,6 @@
 // az alábbi minden intervallumra érvényes
 A kiszámolt prímeknél figyelembe kell azt is venni, amit a prímhármasok előszűrése megkövetel: nem lehet 1-nél több 2 távolságra levő prím egymás után. Páratlan prímeket nézve az alábbi módon alakulnak a további páratlan számok: 1 prím -> 1 lyuk, vagy 2 prím -> 1 lyuk, ahol minden lépés 2 prím, valamint prím és lyuk között 2. Ezt úgy tudjuk figyelembe venni, hogy egy számlálóban külön nyílván tartjuk, a lista végén álló prímek visszafele nézve hány db 2 távra levő prímpárral rendelkeznek, amit természetesen elég csak addig tárolni, amíg ez a távolság nem lesz több, mint 2. Mivel ezek a 2 távra levő prímpárok(ikerprímek) 2-3-5 és 3-5-7 esetén kívül maximum 1-szer szerepelnek egymás után, így az utolsó távolság vagy ikerprím volt, vagy nem. Ha az utolsó 2 prím ikerprímet alkotott - esetleg még az előtte levő is, ha a legutolsó prímszám 7 volt -, akkor mindenképp a következő prím már legalább 4 távolságra lesz. Erre a célra egy boolean tökéletesen elegendő.
 
-## Bázis és intervallum egyesítése
-
-## Nagyon nagy számok
-
-### Számítás félbeszakítása
-
-Egy idő után a számok prímség ellenőrzése a korábbi prímek segítségével még akkor is érezhetően hosszú és processzorigényes lesz, ha az összes eddigi és jövőbeli optimalizálást alkalmazzuk. Ha már egy nagy szám kiszámítása elkezdődött, de az adott kliens nem tud a végére érni, akkor se kellene az addig elért eredményeket kidobni a kukába, el kéne tárolni, hogy X-et vizsgálta a kliens és Y-ig jutott (ameddig is bizton tudja állítani, hogy <=Y prímek nem osztják X-et).
-
-Az adott szám félbehagyott kiszámítása kell, hogy nagyobb prioritást kapjon az új számok ellenőrzésével szemben. Az adott számítás folytatását fogja megkapni a legelső szabad kliens.
-
-TODO: ennek az információnak a tárolásához jó lenne kitalálni valami formátumot, avagy hogyan lehetne bővíteni az eddigi sémánkat
-
 ### Mennyit is kell számolnunk
 
 TODO: Pár példa arra, hogy a prímek ellenőrzéséhez mennyit kell számolnunk és erre esetleg képlet
