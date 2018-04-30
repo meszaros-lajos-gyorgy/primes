@@ -23,9 +23,13 @@ TODO
 
 ---
 
+## Format
+
+The ongoing calculations of each number is placed into an object. The keys are the numbers themselves, which are being calculated and the values are arrays, which hold the progress of calculation. If the array is empty, which is the default value, then no calculation have been made yet. The number of elements in the array show how many clients are working on the number in the same time. The individual values show the last checked divisor, which did not divide the number itself.
+
 ```json
 {
   "15271": [17, 19],
-  "15273": null
+  "15273": []
 }
 ```

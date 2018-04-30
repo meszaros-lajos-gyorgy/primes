@@ -87,16 +87,25 @@ The priority for filling up gaps should always go for the lowest gap. This would
 
 ---
 
+## Format
+
 ```json
 {
   "base": {
     "end": 75,
     "primes": [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73]
   },
-  "intervals": {
-    "150..152": {
+  "intervals": [
+    {
+      "start": 150,
+      "end": 152,
       "primes": [151]
+    },
+    {
+      "start": 162,
+      "end": 166,
+      "primes": [163]
     }
-  }
+  ]
 }
 ```
