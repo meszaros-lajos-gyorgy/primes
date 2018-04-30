@@ -8,13 +8,6 @@ See [Divisors and multipliers](./divisors-and-multipliers.md#all-possible-square
 
 When checking a prime candidate, the process can take a long time, but the client might exit before finishing the calculation. For this, it is required to store the last checked divisor as additional information next to the number itself.
 
-```json
-{
-  "number": 127,
-  "lastChecked": 27
-}
-```
-
 When clients requests new calculations, then the priority should be on the aborted calculations compared to starting new calculations on new numbers.
 
 ## Checking a single number with multiple clients
@@ -27,3 +20,12 @@ TODO
 
 * how many primes should the server have before needing to break up primal checks to multiple clients?
 * at what steps does the server need to split the task into `2`, `3`, `4` or any other number?
+
+---
+
+```json
+{
+  15271: [17, 19],
+  15273: null
+}
+```

@@ -84,3 +84,19 @@ The priority for filling up gaps should always go for the lowest gap. This would
 
 * the base grows
 * it is always the simpler numbers, which get calculated before the difficult ones
+
+---
+
+```json
+{
+  "base": {
+    "end": 125,
+    "primes": [2, 3, 5, 7, 11, ...]
+  },
+  "intervals": {
+    [150, 152]: {
+      "primes": [151]
+    }
+  }
+}
+```
