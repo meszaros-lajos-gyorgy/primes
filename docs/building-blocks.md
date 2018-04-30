@@ -91,10 +91,10 @@ The priority for filling up gaps should always go for the lowest gap. This would
 {
   "base": {
     "end": 125,
-    "primes": [2, 3, 5, 7, 11, ...]
+    "primes": [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
   },
   "intervals": {
-    [150, 152]: {
+    "150..152": {
       "primes": [151]
     }
   }
