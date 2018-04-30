@@ -26,4 +26,4 @@ The primality check for a given number `N` can be distributed between `M` number
 TODO
 
 * how many primes should the server have before needing to break up primal checks to multiple clients?
-* at what steps does the server need to split the task into 2, 3, 4 or any other number?
+* at what steps does the server need to split the task into `2`, `3`, `4` or any other number?

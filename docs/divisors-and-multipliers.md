@@ -1,6 +1,6 @@
 # Divisors and multipliers
 
-In the examples below we place the divisors and multipliers on a numberline, from where we can select 3 consecutive segments for our calculations.
+In the examples below we place the divisors and multipliers on a numberline, from where we can select `3` consecutive segments for our calculations.
 
 ## All the divisors of a given number
 
@@ -48,9 +48,9 @@ The sizes of the sections change with every increment of `P`. The 2nd section gr
  101 | 10100 | 98.05% | 194 | 1.94% | 10294
 ```
 
-We can generate numbers for the 2nd section by taking the difference of the last 2 elements, increment it by 2 and add it to the last element. The initial difference can be calculated by checking the difference betweend the values of `P=3` and `P=4`, which is 6. It is also the number of elements in the 2nd section for `P=3`.
+We can generate numbers for the 2nd section by taking the difference of the last `2` elements, increment it by `2` and add it to the last element. The initial difference can be calculated by checking the difference betweend the values of `P=3` and `P=4`, which is `6`. It is also the number of elements in the 2nd section for `P=3`.
 
-The amounts of the 3rd section grow by 2 in every round, which has an intial value of 4 for `P=3`.
+The amounts of the 3rd section grow by `2` in every round, which has an intial value of `4` for `P=3`.
 
 ### Bertrand–Chebyshev theorem sizes
 

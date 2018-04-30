@@ -1,9 +1,9 @@
 # Divisibility rules and facts
 
-* 0 can be divided with everything
-* a number is divisible by 2, if it's even, thus when it's last digit is 0, 2, 4, 6 or 8
-* divisibility of 3 can be checked by doing the following: subtract the quantity of the digits 2, 5, and 8 in the number from the quantity of the digits 1, 4, and 7 in the number. The result must be divisible by 3. ([wikipedia](https://en.wikipedia.org/wiki/Divisibility_rule#Divisibility_rules_for_numbers_1%E2%80%9330))
-* divisibility of 5 can be checked for a number by checking, if it's last digit is 0 or 5
+* `0` can be divided with everything
+* a number is divisible by `2`, if it's even, thus when it's last digit is `0`, `2`, `4`, `6` or `8`
+* divisibility of `3` can be checked by doing the following: subtract the quantity of the digits `2`, `5`, and `8` in the number from the quantity of the digits `1`, `4`, and `7` in the number. The result must be divisible by `3`. ([wikipedia](https://en.wikipedia.org/wiki/Divisibility_rule#Divisibility_rules_for_numbers_1%E2%80%9330))
+* divisibility of `5` can be checked for a number by checking, if it's last digit is `0` or `5`
 
 There is a general, recursive pattern for checking primes from 7 and above:
 
