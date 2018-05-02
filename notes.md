@@ -21,3 +21,30 @@ TODO: Ha egy fájl van, akkor azt iduláskor beolvassa a szerver, majd időköz�
 
 Struktúra: fájl -> master -> slaves -> clients, ahol a master-slaves a szerveroldal, és a socket kapcsolatok elosztásáról gondoskodnak
 Lehet, hogy fájlbaírás helyett a tárolást egy DB-re kéne bízni, pl mongo
+
+## Félprímek
+
+Az ötletemhez a koordinátákat az alábbi kód kombinálja ki a megadott prímekből (ramda függvények)
+
+```javascript
+const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+const sortByFirstItem = sortBy(prop(0))
+
+const getSemiprimes = addIndex(reduce)((acc, q, i) => {
+  return concat(acc, compose(
+    map(p => [p*q, i]),
+    slice(0, i + 1)
+  )(primes))
+}, [])
+
+const replaceFirstItemWithIndex = addIndex(map)((element, i) => {
+  return update(0, i, element)
+})
+
+compose(
+  replaceFirstItemWithIndex,
+  sortByFirstItem,
+  getSemiprimes
+)(primes)
+```
