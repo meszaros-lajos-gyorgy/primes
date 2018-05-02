@@ -9,3 +9,15 @@ TODO: esetleg az egészet prioritás döntse el és lehessen egyes számokra nag
 TODO: hogyan lehetne jól széttörni a kiszámolt prímek tömbjét, hogy ne egy monolitikus tömbbe legyen eltárolva?
 TODO: pl 10000 kiszámolt prímenként eltároljuk az eredményeket fájlba és mindig csak egy adott fájl van nyitva, ami tartalmazza a szükséges infókat a további kereséshez. Esetleg van olyan DB, ami ezt könnyen lekezeli?
 TODO: Ha egy fájl van, akkor azt iduláskor beolvassa a szerver, majd időközönként ment. Esetleg egy watcher-t is lehetne rá beállítani chokidarral, hiszen a fájl változhat
+
+---
+
+# Random dolgok
+
+* A sima számokhoz tartozó limit mellett a prímeknek is kellene egy limit, hogy ne csak azt lehessen mondani, hogy 1000-ig kéretik megkeresni a prímeket, hanem azt is, hogy az 1000-ik prímig kellene elmenni.
+* A számításokhoz a gépigény nőni fog, így jó lenne felmérni, mikor kell a throttle-be megfogalmazott értéket automatikusan csökkenteni.
+* A throttle-t lehessen kikapcsolni is
+* A félprímek osztóinak kiszámolása ugyanúgy fontos cél lenne a projektben, mint maguk a prímek kiszámítása. Volna-e értelme annak, ha a azokat is gyüjtenénk a prímekkel párhuzamosan? (bár akkor már bármelyik számot eltárolhatnánk, hogy bármikor lekérdezhető legyen annak prímtényezős felbontása)
+
+Struktúra: fájl -> master -> slaves -> clients, ahol a master-slaves a szerveroldal, és a socket kapcsolatok elosztásáról gondoskodnak
+Lehet, hogy fájlbaírás helyett a tárolást egy DB-re kéne bízni, pl mongo
