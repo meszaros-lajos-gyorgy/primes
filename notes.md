@@ -29,22 +29,18 @@ Az ötletemhez a koordinátákat az alábbi kód kombinálja ki a megadott prím
 ```javascript
 const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
-const sortByFirstItem = sortBy(prop(0))
+const sortBySecondItem = sortBy(prop(1))
 
-const getSemiprimes = addIndex(reduce)((acc, q, i) => {
-  return concat(acc, compose(
-    map(p => [p*q, i]),
-    slice(0, i + 1)
-  )(primes))
-}, [])
+const getSemiprimes = addIndex(reduce)((acc, q, i) => concat(acc, compose(
+  map(p => [i, p*q]),
+  slice(0, i + 1)
+)(primes)), [])
 
-const replaceFirstItemWithIndex = addIndex(map)((element, i) => {
-  return update(0, i, element)
-})
+const replaceSecondItemWithIndex = addIndex(map)((element, i) => update(1, i, element))
 
 compose(
-  replaceFirstItemWithIndex,
-  sortByFirstItem,
+  replaceSecondItemWithIndex,
+  sortBySecondItem,
   getSemiprimes
 )(primes)
 ```
