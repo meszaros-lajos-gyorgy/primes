@@ -16,13 +16,14 @@ TODO: Ha egy fájl van, akkor azt iduláskor beolvassa a szerver, majd időköz�
 
 * A sima számokhoz tartozó limit mellett a prímeknek is kellene egy limit, hogy ne csak azt lehessen mondani, hogy 1000-ig kéretik megkeresni a prímeket, hanem azt is, hogy az 1000-ik prímig kellene elmenni.
 * A számításokhoz a gépigény nőni fog, így jó lenne felmérni, mikor kell a throttle-be megfogalmazott értéket automatikusan csökkenteni.
-* A throttle-t lehessen kikapcsolni is
 * A félprímek osztóinak kiszámolása ugyanúgy fontos cél lenne a projektben, mint maguk a prímek kiszámítása. Volna-e értelme annak, ha a azokat is gyüjtenénk a prímekkel párhuzamosan? (bár akkor már bármelyik számot eltárolhatnánk, hogy bármikor lekérdezhető legyen annak prímtényezős felbontása)
 
 Struktúra: fájl -> master -> slaves -> clients, ahol a master-slaves a szerveroldal, és a socket kapcsolatok elosztásáról gondoskodnak
 Lehet, hogy fájlbaírás helyett a tárolást egy DB-re kéne bízni, pl mongo
 
 ## Félprímek
+
+A félprímek jellemzői és azokkal kapcsolatos bármilyen kutatás megérne egy külön fájlt
 
 Az ötletemhez a koordinátákat az alábbi kód kombinálja ki a megadott prímekből (ramda függvények)
 
